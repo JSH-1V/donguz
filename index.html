@@ -19,11 +19,11 @@
   --bark:      #1a1410;
   --sage:      #7a9e7e;
   --sage2:     #5a7d5e;
-  --sage-dim:  rgba(122,158,126,0.12);
+  --sage-dim:  rgba(100,148,106,0.18);
   --terra:     #c17f5a;
-  --terra-dim: rgba(193,127,90,0.12);
+  --terra-dim: rgba(193,127,90,0.16);
   --clay:      #b85c4a;
-  --clay-dim:  rgba(184,92,74,0.1);
+  --clay-dim:  rgba(184,92,74,0.14);
   --sky:       #7a9eb5;
   --sky-dim:   rgba(122,158,181,0.12);
   --lavender:  #9b8faa;
@@ -288,6 +288,12 @@ td { padding: 14px 20px; transition: padding .15s; }
 }
 .status-pill .dot { width: 5px; height: 5px; border-radius: 50%; }
 
+/* Light mode: stronger contrast for status pills */
+:root .status-pill { filter: saturate(1.1); }
+/* Darken the inline bg colors on light mode pills */
+.status-pill { border: 1px solid rgba(0,0,0,0.08); }
+html.dark .status-pill { border: none; }
+
 /* Badges resultado */
 .bdg {
   display: inline-flex; align-items: center; gap: 5px;
@@ -295,9 +301,12 @@ td { padding: 14px 20px; transition: padding .15s; }
   font-size: 11px; font-weight: 500; letter-spacing: 0.2px;
   transition: all .2s;
 }
-.bdg-ok     { background: var(--sage-dim);  color: var(--sage2);  border: 1px solid rgba(122,158,126,0.2); }
-.bdg-fail   { background: var(--clay-dim);  color: var(--clay);   border: 1px solid rgba(184,92,74,0.2); }
-.bdg-pend   { background: var(--sage-dim);  color: var(--sage2); border: 1px solid rgba(122,158,126,0.2); }
+.bdg-ok     { background: rgba(100,148,106,0.16); color: #3d6b42;  border: 1px solid rgba(80,130,86,0.35); }
+.bdg-fail   { background: rgba(184,92,74,0.14);    color: #9c3d2c;  border: 1px solid rgba(184,92,74,0.32); }
+.bdg-pend   { background: rgba(100,148,106,0.13);  color: #4a7a50;  border: 1px solid rgba(80,130,86,0.28); }
+html.dark .bdg-ok   { background: var(--sage-dim);  color: var(--sage2);  border: 1px solid rgba(74,222,128,0.2); }
+html.dark .bdg-fail { background: var(--clay-dim);  color: var(--clay);   border: 1px solid rgba(248,113,113,0.2); }
+html.dark .bdg-pend { background: var(--sage-dim);  color: var(--sage2);  border: 1px solid rgba(74,222,128,0.2); }
 
 tbody tr:hover .bdg { transform: scale(1.04); }
 
