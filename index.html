@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Panel de Llamadas</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -107,9 +107,9 @@ header {
   display: flex; align-items: center; justify-content: center;
 }
 .brand-name {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 20px; font-weight: 400;
-  letter-spacing: 0.3px; color: var(--bark);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 17px; font-weight: 600;
+  letter-spacing: -0.2px; color: var(--bark);
 }
 .brand-sub { font-size: 11px; color: var(--text3); letter-spacing: 0.5px; }
 .hright { display: flex; align-items: center; gap: 14px; }
@@ -314,8 +314,8 @@ tbody tr:hover .bdg { transform: scale(1.04); }
 .empty td {
   text-align: center; padding: 64px;
   color: var(--text3); font-size: 13px;
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
+  font-family: 'DM Sans', sans-serif;
+  font-style: normal;
 }
 
 /* Loader */
@@ -335,7 +335,7 @@ tbody tr:hover .bdg { transform: scale(1.04); }
   animation: spin 1s linear infinite;
   margin-bottom: 14px;
 }
-.loader-txt { font-size: 13px; color: var(--text3); font-style: italic; font-family: 'Cormorant Garamond', serif; }
+.loader-txt { font-size: 13px; color: var(--text3); font-style: normal; font-family: 'DM Sans', sans-serif; }
 
 /* Footer */
 footer { margin-top: 32px; padding: 20px 0; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
@@ -487,7 +487,7 @@ footer { margin-top: 32px; padding: 20px 0; border-top: 1px solid var(--border);
 
   <footer class="fu fu4">
     <div class="fnote"><span id="fn">0</span> registros · Actualización automática cada 60 seg.</div>
-    <div class="fnote" style="font-style:italic;font-family:'Cormorant Garamond',serif;font-size:13px;color:var(--stone)">con intención y claridad ◦</div>
+    <div class="fnote" style="font-size:11px;color:var(--stone)">con intención y claridad ◦</div>
   </footer>
 </div>
 
