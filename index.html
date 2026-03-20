@@ -406,10 +406,10 @@ footer { margin-top: 32px; padding: 20px 0; border-top: 1px solid var(--border);
       <div class="stat-val" id="s-fail">—</div>
       <div class="pbar"><div class="pbar-f" id="pb-fail" style="background:#b71c1c;width:0%"></div></div>
     </div>
-    <div class="stat" style="--ac:#c05e20">
+    <div class="stat" style="--ac:#6aab70">
       <div class="stat-icon">◌</div>
       <div class="stat-lbl">Pendientes</div>
-      <div class="stat-val" id="s-pend">—</div>
+      <div class="stat-val" id="s-pend" style="color:#6aab70">—</div>
       <div class="stat-sub">en espera de resultado</div>
     </div>
     <div class="stat" style="--ac:#5c35a0">
@@ -757,8 +757,16 @@ function tabla() {
       : `<span class="bdg bdg-pend">◌ Pendiente</span>`;
 
     // Color según resultado
-    const stColor = res==='ok' ? 'var(--sage)' : res==='fail' ? 'var(--clay)' : 'var(--sage)';
-    const stBg    = res==='ok' ? 'var(--sage-dim)' : res==='fail' ? 'var(--clay-dim)' : 'var(--sage-dim)';
+    // PENDING_ACCEPTED/ENROUTE/etc = verde claro; errores no mapeados = amarillo/terra
+    const esPendienteVerde = new Set(['PENDING_ACCEPTED','PENDING_ENROUTE','PENDING_WAITING_DELIVERY','MESSAGE_ACCEPTED']).has(r.status || '');
+    const stColor = res==='ok'   ? 'var(--sage)'
+                  : res==='fail' ? 'var(--clay)'
+                  : esPendienteVerde ? '#6aab70'       // verde claro — aceptada pero sin resultado
+                  : 'var(--terra)';                    // amarillo/terra — error desconocido
+    const stBg    = res==='ok'   ? 'var(--sage-dim)'
+                  : res==='fail' ? 'var(--clay-dim)'
+                  : esPendienteVerde ? 'rgba(106,171,112,0.12)'
+                  : 'var(--terra-dim)';
 
     // Estado traducido — solo status (el Flujo 3 lo actualiza con el valor final)
     const stLabel = traducirEstado(r.status);
