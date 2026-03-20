@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panel de Llamadas</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --cream:     #faf8f4;
+  --cream2:    #f4f0e8;
+  --cream3:    #ede8dc;
+  --warm:      #e8e0d0;
+  --sand:      #d4c9b0;
+  --stone:     #a89880;
+  --stone2:    #7a6a58;
+  --bark:      #1a1410;
+  --sage:      #7a9e7e;
+  --sage2:     #5a7d5e;
+  --sage-dim:  rgba(122,158,126,0.12);
+  --terra:     #c17f5a;
+  --terra-dim: rgba(193,127,90,0.12);
+  --clay:      #b85c4a;
+  --clay-dim:  rgba(184,92,74,0.1);
+  --sky:       #7a9eb5;
+  --sky-dim:   rgba(122,158,181,0.12);
+  --lavender:  #9b8faa;
+  --text:      #111008;
+  --text2:     #3a3028;
+  --text3:     #7a6a58;
+  --border:    rgba(100,85,70,0.18);
+  --border2:   rgba(100,85,70,0.32);
+  --card-bg:   #ffffff;
+  --header-bg: rgba(250,248,244,0.92);
+  --thead-bg:  var(--cream);
+  --input-bg:  #ffffff;
+  --r: 16px; --rsm: 10px;
+}
+
+html.dark {
+  --cream:     #0a0a0a;
+  --cream2:    #111111;
+  --cream3:    #1a1a1a;
+  --warm:      #222222;
+  --sand:      #333333;
+  --stone:     #666666;
+  --stone2:    #888888;
+  --bark:      #ffffff;
+  --sage:      #4ade80;
+  --sage2:     #22c55e;
+  --sage-dim:  rgba(74,222,128,0.1);
+  --terra:     #fb923c;
+  --terra-dim: rgba(251,146,60,0.1);
+  --clay:      #f87171;
+  --clay-dim:  rgba(248,113,113,0.1);
+  --sky:       #60a5fa;
+  --lavender:  #c084fc;
+  --text:      #ffffff;
+  --text2:     #e5e5e5;
+  --text3:     #999999;
+  --border:    rgba(255,255,255,0.1);
+  --border2:   rgba(255,255,255,0.18);
+  --card-bg:   #111111;
+  --header-bg: rgba(10,10,10,0.95);
+  --thead-bg:  #1a1a1a;
+  --input-bg:  #1a1a1a;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--cream);
+  color: var(--text);
+  min-height: 100vh;
+  font-size: 14px;
+  transition: background .3s, color .3s;
+}
+
+/* Textura de fondo sutil */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23a89880' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  pointer-events: none; z-index: 0;
+}
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-thumb { background: var(--sand); border-radius: 4px; }
+
+.wrap { max-width: 1320px; margin: 0 auto; padding: 0 32px; position: relative; z-index: 1; }
+
+/* ── Header ── */
+header {
+  background: var(--header-bg);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  position: sticky; top: 0; z-index: 50;
+}
+.hinner { height: 64px; display: flex; align-items: center; justify-content: space-between; }
+.brand { display: flex; align-items: center; gap: 14px; }
+.brand-mark {
+  width: 38px; height: 38px;
+  background: var(--sage-dim);
+  border: 1px solid rgba(122,158,126,0.25);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+}
+.brand-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px; font-weight: 400;
+  letter-spacing: 0.3px; color: var(--bark);
+}
+.brand-sub { font-size: 11px; color: var(--text3); letter-spacing: 0.5px; }
+.hright { display: flex; align-items: center; gap: 14px; }
+
+.live-pill {
+  display: flex; align-items: center; gap: 6px;
+  padding: 5px 12px; border-radius: 20px;
+  font-size: 11px; font-weight: 500;
+  letter-spacing: 0.3px;
+  background: var(--sage-dim);
+  border: 1px solid rgba(122,158,126,0.25);
+  color: var(--sage2);
+  transition: all .3s;
+}
+@keyframes breathe { 0%,100%{opacity:1} 50%{opacity:.35} }
+.live-dot { width: 6px; height: 6px; border-radius: 50%; animation: breathe 3s ease-in-out infinite; }
+.ts-txt { font-size: 11px; color: var(--text3); }
+
+.btn-refresh {
+  background: transparent; border: 1px solid var(--border2);
+  border-radius: 20px; padding: 6px 16px;
+  color: var(--text2); font-size: 12px;
+  cursor: pointer; transition: all .2s;
+  font-family: 'DM Sans', sans-serif;
+}
+.btn-refresh:hover { background: var(--cream2); border-color: var(--stone); color: var(--bark); }
+
+/* ── Stats ── */
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin: 28px 0 20px; }
+
+.stat {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 20px 22px;
+  transition: all .25s;
+  position: relative; overflow: hidden;
+}
+.stat:hover { border-color: var(--border2); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(74,63,53,0.08); }
+.stat::before {
+  content: ''; position: absolute;
+  bottom: 0; left: 0; right: 0; height: 3px;
+  background: var(--ac, transparent);
+  border-radius: 0 0 var(--r) var(--r);
+  opacity: .6;
+}
+.stat-icon { font-size: 18px; margin-bottom: 10px; }
+.stat-lbl { font-size: 10px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--text3); font-weight: 600; margin-bottom: 8px; }
+html.dark .stat-lbl { color: #aaaaaa; }
+html.dark .stat-sub { color: #777777; }
+html.dark .panel-ttl { color: #aaaaaa; }
+html.dark .dname { color: #cccccc; }
+html.dark .dval { color: #ffffff; font-weight: 600; }
+html.dark .brand-name { color: #ffffff; }
+html.dark .fnote { color: #666666; }
+.stat-val {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 38px; font-weight: 800; line-height: 1;
+  color: var(--ac, var(--bark)); letter-spacing: -2px;
+}
+.stat-sub { font-size: 11px; color: var(--text3); margin-top: 6px; }
+.pbar { margin-top: 12px; background: var(--cream3); border-radius: 3px; height: 2px; overflow: hidden; }
+.pbar-f { height: 2px; border-radius: 3px; transition: width 1.2s cubic-bezier(.4,0,.2,1); }
+
+html.dark .stat[style*="1a7abf"] { --ac: #38bdf8; }
+html.dark .stat[style*="2e7d32"] { --ac: #4ade80; }
+html.dark .stat[style*="b71c1c"] { --ac: #f87171; }
+html.dark .stat[style*="c05e20"] { --ac: #fb923c; }
+html.dark .stat[style*="5c35a0"] { --ac: #c084fc; }
+html.dark .stat[style*="5a4535"] { --ac: #ffffff; }
+
+/* Toggle de tema */
+.theme-toggle {
+  width: 40px; height: 22px;
+  background: var(--cream3); border: 1px solid var(--border2);
+  border-radius: 11px; cursor: pointer;
+  position: relative; transition: background .3s;
+  flex-shrink: 0;
+}
+.theme-toggle::after {
+  content: '';
+  position: absolute; top: 3px; left: 3px;
+  width: 14px; height: 14px; border-radius: 50%;
+  background: var(--stone); transition: all .3s;
+}
+html.dark .theme-toggle { background: var(--warm); }
+html.dark .theme-toggle::after { transform: translateX(18px); background: var(--sage); }
+.theme-label { font-size: 11px; color: var(--text3); }
+
+/* ── Mid ── */
+.mid { display: grid; grid-template-columns: 220px 1fr; gap: 12px; margin-bottom: 20px; }
+
+.panel {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 22px 24px;
+  transition: border-color .2s;
+}
+.panel:hover { border-color: var(--border2); }
+.panel-ttl {
+  font-size: 10px; text-transform: uppercase;
+  letter-spacing: 1.2px; color: var(--text3);
+  font-weight: 500; margin-bottom: 18px;
+}
+
+/* Donut */
+#donut { display: block; margin: 0 auto 18px; }
+.dleg { display: flex; flex-direction: column; gap: 9px; }
+.drow { display: flex; align-items: center; gap: 9px; }
+.ddot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.dname { font-size: 12px; color: var(--text2); flex: 1; }
+.dval { font-size: 12px; font-weight: 500; color: var(--text); }
+.dsep { border-top: 1px solid var(--border); padding-top: 9px; margin-top: 3px; }
+
+/* Barras */
+.bchart { height: 110px; display: flex; align-items: flex-end; gap: 8px; padding-bottom: 22px; position: relative; }
+.bcol { flex: 1; position: relative; height: 100%; }
+.bstack { width: 100%; position: absolute; bottom: 0; border-radius: 4px 4px 0 0; overflow: hidden; }
+.bok   { background: var(--sage); opacity: .7; transition: height .6s cubic-bezier(.4,0,.2,1); }
+.bfail { background: var(--terra); opacity: .6; transition: height .6s cubic-bezier(.4,0,.2,1); }
+.bpend { background: var(--sand); opacity: .8; transition: height .6s cubic-bezier(.4,0,.2,1); }
+.bday  { font-size: 9px; color: var(--text3); position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); white-space: nowrap; letter-spacing: 0.3px; }
+.btip  {
+  display: none; position: absolute; bottom: calc(100% + 6px); left: 50%;
+  transform: translateX(-50%);
+  background: var(--bark); color: var(--cream);
+  padding: 4px 10px; border-radius: 6px; font-size: 10px;
+  white-space: nowrap; z-index: 10;
+}
+.btip::after { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); border: 4px solid transparent; border-top-color: var(--bark); }
+.bcol:hover .btip { display: block; }
+
+/* ── Filters ── */
+.filters { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-bottom: 14px; }
+.finp {
+  background: var(--input-bg); border: 1px solid var(--border);
+  border-radius: 20px; padding: 8px 16px;
+  color: var(--text); font-size: 12px; outline: none;
+  transition: all .2s; font-family: 'DM Sans', sans-serif;
+}
+.finp:focus { border-color: var(--stone); box-shadow: 0 0 0 3px rgba(168,152,128,0.1); }
+.finp::placeholder { color: var(--text3); }
+.fcount { font-size: 11px; color: var(--text3); margin-left: auto; letter-spacing: 0.3px; }
+
+/* ── Table ── */
+.twrap {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  overflow: hidden;
+}
+table { width: 100%; border-collapse: collapse; }
+thead tr { border-bottom: 1px solid var(--border2); }
+th {
+  padding: 12px 20px; text-align: left;
+  font-size: 10px; text-transform: uppercase;
+  letter-spacing: 1.2px; color: var(--text3); font-weight: 500;
+  background: var(--thead-bg);
+}
+tbody tr {
+  border-bottom: 1px solid var(--border);
+  transition: background .15s, transform .15s;
+  cursor: default;
+}
+tbody tr:last-child { border-bottom: none; }
+tbody tr:hover { background: var(--cream2); }
+tbody tr:hover td:first-child { padding-left: 24px; }
+td { padding: 14px 20px; transition: padding .15s; }
+
+/* Status pill — traducido */
+.status-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 12px; border-radius: 20px;
+  font-size: 11px; font-weight: 400; letter-spacing: 0.2px;
+}
+.status-pill .dot { width: 5px; height: 5px; border-radius: 50%; }
+
+/* Badges resultado */
+.bdg {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 4px 12px; border-radius: 20px;
+  font-size: 11px; font-weight: 500; letter-spacing: 0.2px;
+  transition: all .2s;
+}
+.bdg-ok     { background: var(--sage-dim);  color: var(--sage2);  border: 1px solid rgba(122,158,126,0.2); }
+.bdg-fail   { background: var(--clay-dim);  color: var(--clay);   border: 1px solid rgba(184,92,74,0.2); }
+.bdg-pend   { background: var(--terra-dim); color: var(--terra);  border: 1px solid rgba(193,127,90,0.2); }
+
+tbody tr:hover .bdg { transform: scale(1.04); }
+
+/* Empty */
+.empty td {
+  text-align: center; padding: 64px;
+  color: var(--text3); font-size: 13px;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+}
+
+/* Loader */
+#loader {
+  position: fixed; inset: 0; background: var(--cream);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  z-index: 200; transition: opacity .5s;
+}
+#loader.hidden { opacity: 0; pointer-events: none; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.spinner {
+  width: 32px; height: 32px;
+  border: 1.5px solid var(--cream3);
+  border-top-color: var(--sage);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 14px;
+}
+.loader-txt { font-size: 13px; color: var(--text3); font-style: italic; font-family: 'Cormorant Garamond', serif; }
+
+/* Footer */
+footer { margin-top: 32px; padding: 20px 0; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+.fnote { font-size: 11px; color: var(--text3); letter-spacing: 0.3px; }
+
+/* Animaciones */
+@keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+.fu  { animation: fadeUp .5s ease both; }
+.fu1 { animation-delay: .05s; }
+.fu2 { animation-delay: .1s; }
+.fu3 { animation-delay: .15s; }
+.fu4 { animation-delay: .2s; }
+
+/* Divisor decorativo */
+.divider {
+  display: flex; align-items: center; gap: 12px;
+  margin: 0 0 20px; color: var(--text3); font-size: 11px;
+  letter-spacing: 1px; text-transform: uppercase;
+}
+.divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+</style>
+</head>
+<body>
+
+<div id="loader">
+  <div class="spinner"></div>
+  <div class="loader-txt">Cargando registros...</div>
+</div>
+
+<header>
+  <div class="wrap">
+    <div class="hinner">
+      <div class="brand">
+        <div class="brand-mark">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <path d="M3 5a2 2 0 012-2h14a2 2 0 012 2v10a2 2 0 01-2 2H9l-4 4V5z" fill="#7a9e7e" opacity=".8"/>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-name">Panel de Llamadas</div>
+          <div class="brand-sub">Seguimiento en tiempo real</div>
+        </div>
+      </div>
+      <div class="hright">
+        <span class="ts-txt" id="ts"></span>
+        <span class="theme-label" id="theme-label">☀︎</span>
+        <button class="theme-toggle" id="theme-toggle" onclick="toggleTema()" title="Cambiar tema"></button>
+        <div class="live-pill" id="live-pill">
+          <div class="live-dot" style="background:var(--sage)"></div>
+          <span id="live-txt">En vivo</span>
+        </div>
+        <button class="btn-refresh" id="btn-refresh" onclick="cargar()">↻ Actualizar</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap" style="padding-top:0;padding-bottom:48px">
+
+  <!-- Stats -->
+  <div class="stats fu">
+    <div class="stat" style="--ac:#1a7abf">
+      <div class="stat-icon">📋</div>
+      <div class="stat-lbl">Total llamadas</div>
+      <div class="stat-val" id="s-tot">—</div>
+      <div class="stat-sub">histórico completo</div>
+    </div>
+    <div class="stat" style="--ac:#2e7d32">
+      <div class="stat-icon">✓</div>
+      <div class="stat-lbl">Contestadas</div>
+      <div class="stat-val" id="s-ok">—</div>
+      <div class="pbar"><div class="pbar-f" id="pb-ok" style="background:#2e7d32;width:0%"></div></div>
+    </div>
+    <div class="stat" style="--ac:#b71c1c">
+      <div class="stat-icon">○</div>
+      <div class="stat-lbl">No contestadas</div>
+      <div class="stat-val" id="s-fail">—</div>
+      <div class="pbar"><div class="pbar-f" id="pb-fail" style="background:#b71c1c;width:0%"></div></div>
+    </div>
+    <div class="stat" style="--ac:#c05e20">
+      <div class="stat-icon">◌</div>
+      <div class="stat-lbl">Pendientes</div>
+      <div class="stat-val" id="s-pend">—</div>
+      <div class="stat-sub">en espera de resultado</div>
+    </div>
+    <div class="stat" style="--ac:#5c35a0">
+      <div class="stat-icon">◎</div>
+      <div class="stat-lbl">Tasa de éxito</div>
+      <div class="stat-val" id="s-tasa">—</div>
+      <div class="stat-sub">del total finalizado</div>
+    </div>
+    <div class="stat" style="--ac:#5a4535">
+      <div class="stat-icon">☀</div>
+      <div class="stat-lbl">Hoy</div>
+      <div class="stat-val" id="s-hoy">—</div>
+      <div class="stat-sub">llamadas hoy</div>
+    </div>
+  </div>
+
+  <!-- Mid -->
+  <div class="mid fu fu1">
+    <div class="panel">
+      <div class="panel-ttl">Resultado global</div>
+      <svg id="donut" width="100" height="100" viewBox="0 0 100 100"></svg>
+      <div class="dleg" id="dleg"></div>
+    </div>
+    <div class="panel">
+      <div class="panel-ttl">Actividad últimos 7 días</div>
+      <div class="bchart" id="bchart"></div>
+    </div>
+  </div>
+
+  <!-- Tabla -->
+  <div class="divider fu fu2">Registros</div>
+
+  <div class="filters fu fu2">
+    <input class="finp" id="fq" placeholder="Buscar por nombre, teléfono o email…" style="width:260px" oninput="filtrar()">
+    <select class="finp" id="fst" onchange="filtrar()">
+      <option value="">Todos los resultados</option>
+      <option value="ok">Contestadas</option>
+      <option value="fail">No contestadas</option>
+      <option value="pend">Pendientes</option>
+    </select>
+    <select class="finp" id="ford" onchange="filtrar()">
+      <option value="desc">Más reciente primero</option>
+      <option value="asc">Más antigua primero</option>
+    </select>
+    <span class="fcount" id="fcount"></span>
+  </div>
+
+  <div class="twrap fu fu3">
+    <table>
+      <thead>
+        <tr>
+          <th>Contacto</th>
+          <th>Teléfono</th>
+          <th>País</th>
+          <th>Estado final</th>
+          <th>Motivo</th>
+          <th style="text-align:center">Resultado</th>
+          <th>Duración</th>
+          <th>¿Escuchó?</th>
+          <th>Fecha</th>
+        </tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
+
+  <footer class="fu fu4">
+    <div class="fnote"><span id="fn">0</span> registros · Actualización automática cada 60 seg.</div>
+    <div class="fnote" style="font-style:italic;font-family:'Cormorant Garamond',serif;font-size:13px;color:var(--stone)">con intención y claridad ◦</div>
+  </footer>
+</div>
+
+<script>
+const API_URL = 'https://hsk-n8n.ju2hpi.easypanel.host/webhook/dashboard-data';
+
+let todos = [], filtrados = [];
+
+// ── Tema ──
+function toggleTema() {
+  const dark = document.documentElement.classList.toggle('dark');
+  document.getElementById('theme-label').textContent = dark ? '☽' : '☀︎';
+  try { localStorage.setItem('tema', dark ? 'dark' : 'light'); } catch(e){}
+  donut(); // re-render donut con colores correctos
+}
+// Cargar tema guardado
+try {
+  if (localStorage.getItem('tema') === 'dark') {
+    document.documentElement.classList.add('dark');
+    document.addEventListener('DOMContentLoaded', () => {
+      const lbl = document.getElementById('theme-label');
+      if (lbl) lbl.textContent = '☽';
+    });
+  }
+} catch(e){}
+
+// ── Traducción de estados técnicos a lenguaje humano ──
+const ESTADO_LABEL = {
+  // Estados iniciales (al disparar)
+  'PENDING_ENROUTE':          'Llamada en camino',
+  'PENDING_ACCEPTED':         'Llamada aceptada',
+  'PENDING_WAITING_DELIVERY': 'Esperando conexión',
+  'MESSAGE_ACCEPTED':         'Aceptada por red',
+  // Estados finales (al terminar la llamada)
+  'DELIVERED_TO_HANDSET':     'Llamada contestada',
+  'DELIVERED_TO_TERMINAL':    'Llamada contestada',
+  'DELIVERED_TO_OPERATOR':    'Conectada al operador',
+  'CALL_ANSWERED':            'Llamada contestada',
+  'NOT_DELIVERED':            'No entregada',
+  'CALL_FAILED':              'Llamada fallida',
+  'UNDELIVERABLE':            'No se pudo entregar',
+  'REJECTED':                 'Número rechazado',
+  'NO_ANSWER':                'Sin respuesta',
+  'BUSY':                     'Línea ocupada',
+  'EXPIRED':                  'Tiempo agotado',
+  'VOICEMAIL':                'Buzón de voz',
+  'UNKNOWN':                  'Estado desconocido',
+};
+
+// Traducción del motivo de cierre (error.name de Infobip)
+const MOTIVO_LABEL = {
+  'NORMAL_HANGUP':    'Llamada completada',
+  'BUSY':             'Línea ocupada',
+  'NO_ANSWER':        'No contestó',
+  'REJECTED':         'Llamada rechazada',
+  'UNDELIVERABLE':    'No entregada',
+  'EXPIRED':          'Tiempo agotado',
+  'CALL_FAILED':      'Error en llamada',
+  'NOT_DELIVERED':    'No entregada',
+};
+
+function traducirEstado(s) {
+  return ESTADO_LABEL[s] || s || '—';
+}
+function traducirMotivo(s) {
+  return MOTIVO_LABEL[s] || s || '—';
+}
+
+// Estados finales de Infobip (cuando la llamada ya terminó)
+const OK_FINAL   = new Set(['DELIVERED_TO_HANDSET','DELIVERED_TO_TERMINAL','DELIVERED_TO_OPERATOR','CALL_ANSWERED']);
+const FAIL_FINAL = new Set(['NOT_DELIVERED','CALL_FAILED','UNDELIVERABLE','REJECTED','NO_ANSWER','BUSY','EXPIRED','VOICEMAIL']);
+// Estados iniciales (llamada aceptada pero aún sin resultado)
+const PENDIENTE  = new Set(['PENDING_ACCEPTED','PENDING_ENROUTE','PENDING_WAITING_DELIVERY','MESSAGE_ACCEPTED']);
+
+function resultado(r) {
+  // Usar status — el Flujo 3 lo sobreescribe con el valor final cuando termina la llamada
+  const s = r.status || '';
+  if (OK_FINAL.has(s))  return 'ok';
+  if (FAIL_FINAL.has(s)) return 'fail';
+  return 'pend'; // PENDING_ACCEPTED u otros estados iniciales
+}
+
+// ── Carga ──
+async function cargar() {
+  const btn = document.getElementById('btn-refresh');
+  btn.textContent = '↻ Cargando…';
+  btn.disabled = true;
+  btn.style.opacity = '0.6';
+  try {
+    const r = await fetch(API_URL + '?t=' + Date.now()); // evitar caché
+    const json = await r.json();
+    // Ordenar por id descendente (más reciente primero) al cargar
+    const raw = json.tabla || (Array.isArray(json) ? json : []);
+    todos = raw.sort((a, b) => (b.id || 0) - (a.id || 0));
+    setLive('En vivo', 'sage');
+  } catch {
+    setLive('Sin conexión', 'clay');
+    if (!todos.length) { ocultarLoader(); restaurarBtn(); return; }
+  }
+  renderizar();
+  ocultarLoader();
+  restaurarBtn();
+}
+
+function restaurarBtn() {
+  const btn = document.getElementById('btn-refresh');
+  btn.textContent = '↻ Actualizar';
+  btn.disabled = false;
+  btn.style.opacity = '1';
+}
+
+function ocultarLoader() {
+  setTimeout(() => document.getElementById('loader').classList.add('hidden'), 400);
+}
+
+function setLive(txt, c) {
+  const p = document.getElementById('live-pill');
+  const d = p.querySelector('.live-dot');
+  const m = {
+    sage: ['var(--sage-dim)','rgba(122,158,126,.25)','var(--sage2)','var(--sage)'],
+    clay: ['var(--clay-dim)','rgba(184,92,74,.2)','var(--clay)','var(--clay)']
+  };
+  const [bg,bo,cl,dc] = m[c]||m.sage;
+  p.style.cssText = `background:${bg};border:1px solid ${bo};color:${cl}`;
+  d.style.background = dc;
+  document.getElementById('live-txt').textContent = txt;
+  document.getElementById('ts').textContent =
+    new Date().toLocaleTimeString('es',{hour:'2-digit',minute:'2-digit'});
+}
+
+function renderizar() {
+  stats(); donut(); barras(); filtrar();
+  document.getElementById('fn').textContent = todos.length;
+}
+
+function stats() {
+  const T    = todos.length;
+  const ok   = todos.filter(r => resultado(r)==='ok').length;
+  const fail = todos.filter(r => resultado(r)==='fail').length;
+  const pend = todos.filter(r => resultado(r)==='pend').length;
+  const tasa = (ok+fail) > 0 ? Math.round(ok/(ok+fail)*100) : 0;
+  const hoy  = new Date().toDateString();
+  // Usar createdAt (fecha real de inserción en la tabla)
+  const hoyN = todos.filter(r => {
+    const f = new Date(r.createdAt);
+    return !isNaN(f) && f.toDateString() === hoy;
+  }).length;
+
+  document.getElementById('s-tot').textContent  = T;
+  document.getElementById('s-ok').textContent   = ok;
+  document.getElementById('s-fail').textContent = fail;
+  document.getElementById('s-pend').textContent = pend;
+  document.getElementById('s-tasa').textContent = tasa+'%';
+  document.getElementById('s-hoy').textContent  = hoyN;
+  document.getElementById('pb-ok').style.width   = T ? Math.round(ok/T*100)+'%' : '0%';
+  document.getElementById('pb-fail').style.width = T ? Math.round(fail/T*100)+'%' : '0%';
+}
+
+function donut() {
+  const T    = todos.length || 1;
+  const ok   = todos.filter(r => resultado(r)==='ok').length;
+  const fail = todos.filter(r => resultado(r)==='fail').length;
+  const pend = T - ok - fail;
+  const cx=50,cy=50,r=36,sw=10,circ=2*Math.PI*r;
+  const dark = document.documentElement.classList.contains('dark');
+  const segs = dark
+    ? [{v:ok,c:'#4ade80'},{v:fail,c:'#f87171'},{v:pend,c:'#fb923c'}]
+    : [{v:ok,c:'#2e7d32'},{v:fail,c:'#b71c1c'},{v:pend,c:'#c05e20'}];
+  const donutText = dark ? '#ffffff' : '#111008';
+  const donutSub  = dark ? '#777777' : '#a89880';
+  let off=0,paths='';
+  segs.forEach(s=>{
+    const d=(s.v/T)*circ;
+    paths+=`<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${s.c}" stroke-width="${sw}" stroke-dasharray="${d} ${circ-d}" stroke-dashoffset="${-off}" transform="rotate(-90 ${cx} ${cy})" opacity="${dark?'1':'.9'}"/>`;
+    off+=d;
+  });
+  const pct = (ok+fail)>0 ? Math.round(ok/(ok+fail)*100) : 0;
+  document.getElementById('donut').innerHTML = paths +
+    `<text x="${cx}" y="${cy-4}" text-anchor="middle" font-size="15" font-weight="800" font-family="Plus Jakarta Sans,sans-serif" fill="${donutText}">${pct}%</text>
+     <text x="${cx}" y="${cy+12}" text-anchor="middle" font-size="8" font-family="DM Sans,sans-serif" fill="${donutSub}" letter-spacing="0.8">ÉXITO</text>`;
+
+  const legSegs = dark
+    ? [{l:'Contestadas',v:ok,c:'#4ade80'},{l:'No contestadas',v:fail,c:'#f87171'},{l:'Pendientes',v:pend,c:'#fb923c'}]
+    : [{l:'Contestadas',v:ok,c:'#2e7d32'},{l:'No contestadas',v:fail,c:'#b71c1c'},{l:'Pendientes',v:pend,c:'#c05e20'}];
+  document.getElementById('dleg').innerHTML = legSegs
+    .map(s=>`<div class="drow"><div class="ddot" style="background:${s.c}"></div><div class="dname">${s.l}</div><div class="dval">${s.v}</div></div>`).join('')+
+  `<div class="drow dsep"><div class="ddot" style="background:var(--text3)"></div><div class="dname">Total</div><div class="dval">${todos.length}</div></div>`;
+}
+
+function barras() {
+  const dias=[];
+  for(let i=6;i>=0;i--){
+    const d=new Date(); d.setDate(d.getDate()-i);
+    const ds=d.toDateString();
+    // Usar createdAt como fecha real del registro
+    const enDia = r => { const f=new Date(r.createdAt); return !isNaN(f) && f.toDateString()===ds; };
+    const ok   = todos.filter(r => enDia(r) && resultado(r)==='ok').length;
+    const fail = todos.filter(r => enDia(r) && resultado(r)==='fail').length;
+    const pend = todos.filter(r => enDia(r) && resultado(r)==='pend').length;
+    dias.push({l:d.toLocaleDateString('es',{weekday:'short'}),ok,fail,pend,t:ok+fail+pend});
+  }
+  const maxV=Math.max(...dias.map(d=>d.t),1);
+  document.getElementById('bchart').innerHTML = dias.map(d=>{
+    const h=Math.round((d.t/maxV)*80);
+    const hf=d.t?Math.round((d.fail/d.t)*h):0;
+    const ho=d.t?Math.round((d.ok/d.t)*h):0;
+    const hp=h-hf-ho;
+    return `<div class="bcol">
+      <div class="btip">${d.ok} contestadas · ${d.fail} sin resp. · ${d.pend} pend.</div>
+      <div class="bstack" style="height:${h}px">
+        <div class="bpend" style="height:${hp}px"></div>
+        <div class="bfail" style="height:${hf}px"></div>
+        <div class="bok"   style="height:${ho}px"></div>
+      </div>
+      <div class="bday">${d.l}</div>
+    </div>`;
+  }).join('');
+}
+
+function filtrar() {
+  const q  = document.getElementById('fq').value.toLowerCase();
+  const st = document.getElementById('fst').value;
+  const or = document.getElementById('ford').value;
+  filtrados = todos
+    .filter(r =>
+      (!q  || (r.nombre||r.name||'').toLowerCase().includes(q) ||
+               (r.telefono||r.phone||'').includes(q) ||
+               (r.email||'').toLowerCase().includes(q)) &&
+      (!st || resultado(r) === st)
+    )
+    .sort((a, b) => {
+      // Usar createdAt si existe, si no id, si no timestamp
+      const va = a.createdAt ? new Date(a.createdAt) : (a.id || 0);
+      const vb = b.createdAt ? new Date(b.createdAt) : (b.id || 0);
+      return or === 'asc' ? va - vb : vb - va;
+    });
+  document.getElementById('fcount').textContent = `${filtrados.length} de ${todos.length}`;
+  tabla();
+}
+
+function tabla() {
+  const tb = document.getElementById('tbody');
+  if (!filtrados.length) {
+    tb.innerHTML='<tr class="empty"><td colspan="9">No hay registros que coincidan con tu búsqueda</td></tr>';
+    return;
+  }
+  tb.innerHTML = filtrados.map(r => {
+    const res = resultado(r);
+
+    // Badge resultado
+    const bdg = res==='ok'
+      ? `<span class="bdg bdg-ok">✓ Contestó</span>`
+      : res==='fail'
+      ? `<span class="bdg bdg-fail">○ No contestó</span>`
+      : `<span class="bdg bdg-pend">◌ Pendiente</span>`;
+
+    // Color según resultado
+    const stColor = res==='ok' ? 'var(--sage)' : res==='fail' ? 'var(--clay)' : 'var(--terra)';
+    const stBg    = res==='ok' ? 'var(--sage-dim)' : res==='fail' ? 'var(--clay-dim)' : 'var(--terra-dim)';
+
+    // Estado traducido — solo status (el Flujo 3 lo actualiza con el valor final)
+    const stLabel = traducirEstado(r.status);
+
+    // Motivo de cierre — viene del Flujo 3 (error.name de Infobip)
+    const motivo = r.motivo_cierre ? traducirMotivo(r.motivo_cierre) : '—';
+
+    // Duración en segundos
+    const dur = r.duracion ? `${r.duracion}s` : '—';
+
+    // ¿Escuchó el audio completo?
+    const audio = r.audio_completo || '—';
+    const audioColor = audio==='Sí' ? 'var(--sage2)' : audio==='No' ? 'var(--clay)' : 'var(--text3)';
+
+    // Fecha usando createdAt (fecha real de inserción)
+    const f    = new Date(r.createdAt);
+    const fStr = isNaN(f) ? '—' : f.toLocaleDateString('es',{day:'2-digit',month:'short',year:'2-digit'});
+    const hStr = isNaN(f) ? '' : f.toLocaleTimeString('es',{hour:'2-digit',minute:'2-digit'});
+
+    // Campos de contacto — acepta nombre/name y telefono/phone por compatibilidad
+    const nombre   = r.nombre   || r.name    || '—';
+    const email    = r.email    || '—';
+    const telefono = r.telefono || r.phone   || '—';
+    const pais     = r.pais     || r.country || '—';
+
+    return `<tr>
+      <td>
+        <div style="font-size:13px;font-weight:500;color:var(--bark)">${nombre}</div>
+        <div style="font-size:11px;color:var(--text3);margin-top:2px">${email}</div>
+      </td>
+      <td style="font-size:12px;color:var(--text2);letter-spacing:0.3px">${telefono}</td>
+      <td style="font-size:12px;color:var(--text2)">${pais}</td>
+      <td>
+        <span class="status-pill" style="background:${stBg};color:${stColor}">
+          <span class="dot" style="background:${stColor}"></span>
+          ${stLabel}
+        </span>
+      </td>
+      <td style="font-size:11px;color:var(--text2)">${motivo}</td>
+      <td style="text-align:center">${bdg}</td>
+      <td style="font-size:12px;color:var(--text2);text-align:center">${dur}</td>
+      <td style="font-size:11px;font-weight:600;color:${audioColor};text-align:center">${audio}</td>
+      <td>
+        <div style="font-size:12px;color:var(--text)">${fStr}</div>
+        <div style="font-size:10px;color:var(--text3);margin-top:2px">${hStr}</div>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+cargar();
+setInterval(cargar, 60000);
+</script>
+</body>
+</html>
