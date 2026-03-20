@@ -521,23 +521,44 @@ const ESTADO_LABEL = {
   'CALL_FAILED':              'Llamada fallida',
   'UNDELIVERABLE':            'No se pudo entregar',
   'REJECTED':                 'Número rechazado',
+  'REJECTED_NETWORK':         'Red rechazó la llamada',
+  'REJECTED_PREPAID_MISSING_FUNDS': 'Saldo insuficiente',
   'NO_ANSWER':                'Sin respuesta',
   'BUSY':                     'Línea ocupada',
   'EXPIRED':                  'Tiempo agotado',
+  'EXPIRED_EXPIRED':          'No contestó (tiempo agotado)',
   'VOICEMAIL':                'Buzón de voz',
   'UNKNOWN':                  'Estado desconocido',
 };
 
 // Traducción del motivo de cierre (error.name de Infobip)
 const MOTIVO_LABEL = {
-  'NORMAL_HANGUP':    'Llamada completada',
-  'BUSY':             'Línea ocupada',
-  'NO_ANSWER':        'No contestó',
-  'REJECTED':         'Llamada rechazada',
-  'UNDELIVERABLE':    'No entregada',
-  'EXPIRED':          'Tiempo agotado',
-  'CALL_FAILED':      'Error en llamada',
-  'NOT_DELIVERED':    'No entregada',
+  // Finales exitosos
+  'NORMAL_HANGUP':                              'Llamada completada',
+  // Sin respuesta / rechazos
+  'BUSY':                                       'Línea ocupada',
+  'NO_ANSWER':                                  'No contestó',
+  'REJECTED':                                   'Llamada rechazada',
+  'REJECTED_PREPAID_MISSING_FUNDS':             'Saldo insuficiente',
+  'REJECTED_NETWORK':                           'Red rechazó la llamada',
+  'REJECTED_DESTINATION':                       'Destino rechazado',
+  'REJECTED_ROUTE':                             'Ruta no disponible',
+  // Expirados
+  'UNDELIVERABLE':                              'No entregada',
+  'EXPIRED':                                    'Tiempo agotado',
+  'EXPIRED_EXPIRED':                            'No contestó (tiempo agotado)',
+  // Errores de cuenta / configuración
+  'EC_ACCOUNT_NOT_PROVISIONED_FOR_SMS':         'Cuenta sin permisos de voz',
+  'EC_ACCOUNT_NOT_PROVISIONED':                 'Cuenta no configurada',
+  'EC_SYSTEM_ERROR':                            'Error interno del proveedor',
+  'EC_ABSENT_SUBSCRIBER_TEMPORARY':             'Suscriptor temporalmente no disponible',
+  'EC_ABSENT_SUBSCRIBER_PERMANENT':             'Número fuera de servicio',
+  'EC_CALL_BARRED':                             'Llamadas bloqueadas en este número',
+  'EC_NUMBER_FORMAT_ERROR':                     'Formato de número inválido',
+  'EC_DESTINATION_FAILED':                      'Destino no alcanzable',
+  // Generales
+  'CALL_FAILED':                                'Error en llamada',
+  'NOT_DELIVERED':                              'No entregada',
 };
 
 function traducirEstado(s) {
@@ -549,7 +570,7 @@ function traducirMotivo(s) {
 
 // Estados finales de Infobip (cuando la llamada ya terminó)
 const OK_FINAL   = new Set(['DELIVERED_TO_HANDSET','DELIVERED_TO_TERMINAL','DELIVERED_TO_OPERATOR','CALL_ANSWERED']);
-const FAIL_FINAL = new Set(['NOT_DELIVERED','CALL_FAILED','UNDELIVERABLE','REJECTED','NO_ANSWER','BUSY','EXPIRED','VOICEMAIL']);
+const FAIL_FINAL = new Set(['NOT_DELIVERED','CALL_FAILED','UNDELIVERABLE','REJECTED','REJECTED_NETWORK','REJECTED_PREPAID_MISSING_FUNDS','NO_ANSWER','BUSY','EXPIRED','EXPIRED_EXPIRED','VOICEMAIL']);
 // Estados iniciales (llamada aceptada pero aún sin resultado)
 const PENDIENTE  = new Set(['PENDING_ACCEPTED','PENDING_ENROUTE','PENDING_WAITING_DELIVERY','MESSAGE_ACCEPTED']);
 
