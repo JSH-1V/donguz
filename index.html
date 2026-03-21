@@ -477,7 +477,6 @@ footer { margin-top: 32px; padding: 20px 0; border-top: 1px solid var(--border);
           <th>Motivo</th>
           <th style="text-align:center">Resultado</th>
           <th>Duración</th>
-          <th>¿Escuchó?</th>
           <th>Fecha</th>
         </tr>
       </thead>
@@ -786,9 +785,6 @@ function tabla() {
     // Duración en segundos
     const dur = r.duracion ? `${r.duracion}s` : '—';
 
-    // ¿Escuchó el audio completo?
-    const audio = r.audio_completo || '—';
-    const audioColor = audio==='Sí' ? 'var(--sage2)' : audio==='No' ? 'var(--clay)' : 'var(--text3)';
 
     // Fecha usando createdAt (fecha real de inserción)
     const f    = new Date(r.createdAt);
@@ -817,7 +813,6 @@ function tabla() {
       <td style="font-size:11px;color:var(--text2)">${motivo}</td>
       <td style="text-align:center">${bdg}</td>
       <td style="font-size:12px;color:var(--text2);text-align:center">${dur}</td>
-      <td style="font-size:11px;font-weight:600;color:${audioColor};text-align:center">${audio}</td>
       <td>
         <div style="font-size:12px;color:var(--text)">${fStr}</div>
         <div style="font-size:10px;color:var(--text3);margin-top:2px">${hStr}</div>
