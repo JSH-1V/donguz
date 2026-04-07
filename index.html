@@ -220,7 +220,8 @@ html.dark .fnote     { color: #666666; }
 
 /* ── Table ── */
 .twrap { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; }
-table { width: 100%; border-collapse: collapse; }
+.table-scroll { overflow-x: auto; }
+table { width: 100%; min-width: 900px; border-collapse: collapse; }
 thead tr { border-bottom: 1px solid var(--border2); }
 th {
   padding: 12px 20px; text-align: left;
@@ -436,6 +437,7 @@ footer { margin-top: 32px; padding: 20px 0; border-top: 1px solid var(--border);
   </div>
 
   <div class="twrap fu fu3">
+    <div class="table-scroll">
     <table>
       <thead>
         <tr>
@@ -452,6 +454,7 @@ footer { margin-top: 32px; padding: 20px 0; border-top: 1px solid var(--border);
       </thead>
       <tbody id="tbody"></tbody>
     </table>
+    </div>
     <!-- Paginación dentro del card -->
     <div class="pag-wrap" id="pag-wrap">
       <div class="pag-info" id="pag-info"></div>
