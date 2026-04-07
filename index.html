@@ -4,68 +4,67 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Panel de Llamadas</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --cream:     #faf8f4;
-  --cream2:    #f4f0e8;
-  --cream3:    #ede8dc;
-  --warm:      #e8e0d0;
-  --sand:      #d4c9b0;
-  --stone:     #a89880;
-  --stone2:    #7a6a58;
-  --bark:      #1a1410;
-  --sage:      #7a9e7e;
-  --sage2:     #5a7d5e;
-  --sage-dim:  rgba(100,148,106,0.18);
-  --terra:     #c17f5a;
-  --terra-dim: rgba(193,127,90,0.16);
-  --clay:      #b85c4a;
-  --clay-dim:  rgba(184,92,74,0.14);
-  --sky:       #7a9eb5;
-  --sky-dim:   rgba(122,158,181,0.12);
-  --lavender:  #9b8faa;
-  --text:      #111008;
-  --text2:     #3a3028;
-  --text3:     #7a6a58;
-  --border:    rgba(100,85,70,0.18);
-  --border2:   rgba(100,85,70,0.32);
-  --card-bg:   #ffffff;
-  --header-bg: rgba(250,248,244,0.92);
-  --thead-bg:  var(--cream);
-  --input-bg:  #ffffff;
-  --r: 16px; --rsm: 10px;
+  --cream:      #faf8f4;
+  --cream2:     #f4f0e8;
+  --cream3:     #ede8dc;
+  --warm:       #e8e0d0;
+  --sand:       #d4c9b0;
+  --stone:      #a89880;
+  --stone2:     #7a6a58;
+  --bark:       #1a1410;
+  --sage:       #7a9e7e;
+  --sage2:      #5a7d5e;
+  --sage-dim:   rgba(122,158,126,0.12);
+  --terra:      #c17f5a;
+  --terra-dim:  rgba(193,127,90,0.12);
+  --clay:       #b85c4a;
+  --clay-dim:   rgba(184,92,74,0.1);
+  --indigo:     #6b7db5;
+  --indigo-dim: rgba(107,125,181,0.12);
+  --text:       #111008;
+  --text2:      #3a3028;
+  --text3:      #7a6a58;
+  --border:     rgba(100,85,70,0.18);
+  --border2:    rgba(100,85,70,0.32);
+  --card-bg:    #ffffff;
+  --header-bg:  rgba(250,248,244,0.92);
+  --thead-bg:   var(--cream);
+  --input-bg:   #ffffff;
+  --r: 16px;
 }
 
 html.dark {
-  --cream:     #0a0a0a;
-  --cream2:    #111111;
-  --cream3:    #1a1a1a;
-  --warm:      #222222;
-  --sand:      #333333;
-  --stone:     #666666;
-  --stone2:    #888888;
-  --bark:      #ffffff;
-  --sage:      #4ade80;
-  --sage2:     #22c55e;
-  --sage-dim:  rgba(74,222,128,0.1);
-  --terra:     #fb923c;
-  --terra-dim: rgba(251,146,60,0.1);
-  --clay:      #f87171;
-  --clay-dim:  rgba(248,113,113,0.1);
-  --sky:       #60a5fa;
-  --lavender:  #c084fc;
-  --text:      #ffffff;
-  --text2:     #e5e5e5;
-  --text3:     #999999;
-  --border:    rgba(255,255,255,0.1);
-  --border2:   rgba(255,255,255,0.18);
-  --card-bg:   #111111;
-  --header-bg: rgba(10,10,10,0.95);
-  --thead-bg:  #1a1a1a;
-  --input-bg:  #1a1a1a;
+  --cream:      #0a0a0a;
+  --cream2:     #111111;
+  --cream3:     #1a1a1a;
+  --warm:       #222222;
+  --sand:       #333333;
+  --stone:      #666666;
+  --stone2:     #888888;
+  --bark:       #ffffff;
+  --sage:       #4ade80;
+  --sage2:      #22c55e;
+  --sage-dim:   rgba(74,222,128,0.1);
+  --terra:      #fb923c;
+  --terra-dim:  rgba(251,146,60,0.1);
+  --clay:       #f87171;
+  --clay-dim:   rgba(248,113,113,0.1);
+  --indigo:     #818cf8;
+  --indigo-dim: rgba(129,140,248,0.12);
+  --text:       #ffffff;
+  --text2:      #e5e5e5;
+  --text3:      #999999;
+  --border:     rgba(255,255,255,0.1);
+  --border2:    rgba(255,255,255,0.18);
+  --card-bg:    #111111;
+  --header-bg:  rgba(10,10,10,0.95);
+  --thead-bg:   #1a1a1a;
+  --input-bg:   #1a1a1a;
 }
 
 body {
@@ -77,7 +76,6 @@ body {
   transition: background .3s, color .3s;
 }
 
-/* Textura de fondo sutil */
 body::before {
   content: '';
   position: fixed; inset: 0;
@@ -106,22 +104,15 @@ header {
   border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
 }
-.brand-name {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 17px; font-weight: 600;
-  letter-spacing: -0.2px; color: var(--bark);
-}
+.brand-name { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 400; letter-spacing: 0.3px; color: var(--bark); }
 .brand-sub { font-size: 11px; color: var(--text3); letter-spacing: 0.5px; }
 .hright { display: flex; align-items: center; gap: 14px; }
 
 .live-pill {
   display: flex; align-items: center; gap: 6px;
   padding: 5px 12px; border-radius: 20px;
-  font-size: 11px; font-weight: 500;
-  letter-spacing: 0.3px;
-  background: var(--sage-dim);
-  border: 1px solid rgba(122,158,126,0.25);
-  color: var(--sage2);
+  font-size: 11px; font-weight: 500; letter-spacing: 0.3px;
+  background: var(--sage-dim); border: 1px solid rgba(122,158,126,0.25); color: var(--sage2);
   transition: all .3s;
 }
 @keyframes breathe { 0%,100%{opacity:1} 50%{opacity:.35} }
@@ -137,61 +128,13 @@ header {
 }
 .btn-refresh:hover { background: var(--cream2); border-color: var(--stone); color: var(--bark); }
 
-/* ── Stats ── */
-.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin: 28px 0 20px; }
-
-.stat {
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: var(--r);
-  padding: 20px 22px;
-  transition: all .25s;
-  position: relative; overflow: hidden;
-}
-.stat:hover { border-color: var(--border2); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(74,63,53,0.08); }
-.stat::before {
-  content: ''; position: absolute;
-  bottom: 0; left: 0; right: 0; height: 3px;
-  background: var(--ac, transparent);
-  border-radius: 0 0 var(--r) var(--r);
-  opacity: .6;
-}
-.stat-icon { font-size: 18px; margin-bottom: 10px; }
-.stat-lbl { font-size: 10px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--text3); font-weight: 600; margin-bottom: 8px; }
-html.dark .stat-lbl { color: #aaaaaa; }
-html.dark .stat-sub { color: #777777; }
-html.dark .panel-ttl { color: #aaaaaa; }
-html.dark .dname { color: #cccccc; }
-html.dark .dval { color: #ffffff; font-weight: 600; }
-html.dark .brand-name { color: #ffffff; }
-html.dark .fnote { color: #666666; }
-.stat-val {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 38px; font-weight: 800; line-height: 1;
-  color: var(--ac, var(--bark)); letter-spacing: -2px;
-}
-.stat-sub { font-size: 11px; color: var(--text3); margin-top: 6px; }
-.pbar { margin-top: 12px; background: var(--cream3); border-radius: 3px; height: 2px; overflow: hidden; }
-.pbar-f { height: 2px; border-radius: 3px; transition: width 1.2s cubic-bezier(.4,0,.2,1); }
-
-html.dark .stat[style*="1a7abf"] { --ac: #38bdf8; }
-html.dark .stat[style*="2e7d32"] { --ac: #4ade80; }
-html.dark .stat[style*="b71c1c"] { --ac: #f87171; }
-html.dark .stat[style*="c05e20"] { --ac: #fb923c; }
-html.dark .stat[style*="5c35a0"] { --ac: #c084fc; }
-html.dark .stat[style*="5a4535"] { --ac: #ffffff; }
-
-/* Toggle de tema */
 .theme-toggle {
   width: 40px; height: 22px;
   background: var(--cream3); border: 1px solid var(--border2);
-  border-radius: 11px; cursor: pointer;
-  position: relative; transition: background .3s;
-  flex-shrink: 0;
+  border-radius: 11px; cursor: pointer; position: relative; transition: background .3s; flex-shrink: 0;
 }
 .theme-toggle::after {
-  content: '';
-  position: absolute; top: 3px; left: 3px;
+  content: ''; position: absolute; top: 3px; left: 3px;
   width: 14px; height: 14px; border-radius: 50%;
   background: var(--stone); transition: all .3s;
 }
@@ -199,40 +142,60 @@ html.dark .theme-toggle { background: var(--warm); }
 html.dark .theme-toggle::after { transform: translateX(18px); background: var(--sage); }
 .theme-label { font-size: 11px; color: var(--text3); }
 
+/* ── Stats ── */
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(155px, 1fr)); gap: 12px; margin: 28px 0 20px; }
+.stat {
+  background: var(--card-bg); border: 1px solid var(--border);
+  border-radius: var(--r); padding: 20px 22px;
+  transition: all .25s; position: relative; overflow: hidden;
+}
+.stat:hover { border-color: var(--border2); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(74,63,53,0.08); }
+.stat::before {
+  content: ''; position: absolute;
+  bottom: 0; left: 0; right: 0; height: 3px;
+  background: var(--ac, transparent);
+  border-radius: 0 0 var(--r) var(--r); opacity: .6;
+}
+.stat-icon { font-size: 18px; margin-bottom: 10px; }
+.stat-lbl { font-size: 10px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--text3); font-weight: 600; margin-bottom: 8px; }
+.stat-val { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 38px; font-weight: 800; line-height: 1; color: var(--ac, var(--bark)); letter-spacing: -2px; }
+.stat-sub { font-size: 11px; color: var(--text3); margin-top: 6px; }
+.pbar { margin-top: 12px; background: var(--cream3); border-radius: 3px; height: 2px; overflow: hidden; }
+.pbar-f { height: 2px; border-radius: 3px; transition: width 1.2s cubic-bezier(.4,0,.2,1); }
+
+html.dark .stat-lbl  { color: #aaaaaa; }
+html.dark .stat-sub  { color: #777777; }
+html.dark .panel-ttl { color: #aaaaaa; }
+html.dark .dname     { color: #cccccc; }
+html.dark .dval      { color: #ffffff; font-weight: 600; }
+html.dark .brand-name{ color: #ffffff; }
+html.dark .fnote     { color: #666666; }
+
 /* ── Mid ── */
 .mid { display: grid; grid-template-columns: 220px 1fr; gap: 12px; margin-bottom: 20px; }
-
 .panel {
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: var(--r);
-  padding: 22px 24px;
-  transition: border-color .2s;
+  background: var(--card-bg); border: 1px solid var(--border);
+  border-radius: var(--r); padding: 22px 24px; transition: border-color .2s;
 }
 .panel:hover { border-color: var(--border2); }
-.panel-ttl {
-  font-size: 10px; text-transform: uppercase;
-  letter-spacing: 1.2px; color: var(--text3);
-  font-weight: 500; margin-bottom: 18px;
-}
+.panel-ttl { font-size: 10px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--text3); font-weight: 500; margin-bottom: 18px; }
 
-/* Donut */
 #donut { display: block; margin: 0 auto 18px; }
 .dleg { display: flex; flex-direction: column; gap: 9px; }
 .drow { display: flex; align-items: center; gap: 9px; }
 .ddot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
 .dname { font-size: 12px; color: var(--text2); flex: 1; }
-.dval { font-size: 12px; font-weight: 500; color: var(--text); }
-.dsep { border-top: 1px solid var(--border); padding-top: 9px; margin-top: 3px; }
+.dval  { font-size: 12px; font-weight: 500; color: var(--text); }
+.dsep  { border-top: 1px solid var(--border); padding-top: 9px; margin-top: 3px; }
 
-/* Barras */
 .bchart { height: 110px; display: flex; align-items: flex-end; gap: 8px; padding-bottom: 22px; position: relative; }
 .bcol { flex: 1; position: relative; height: 100%; }
 .bstack { width: 100%; position: absolute; bottom: 0; border-radius: 4px 4px 0 0; overflow: hidden; }
-.bok   { background: var(--sage); opacity: .7; transition: height .6s cubic-bezier(.4,0,.2,1); }
-.bfail { background: var(--terra); opacity: .6; transition: height .6s cubic-bezier(.4,0,.2,1); }
-.bpend { background: var(--sand); opacity: .8; transition: height .6s cubic-bezier(.4,0,.2,1); }
-.bday  { font-size: 9px; color: var(--text3); position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); white-space: nowrap; letter-spacing: 0.3px; }
+.bok   { background: var(--sage);   opacity: .7; transition: height .6s cubic-bezier(.4,0,.2,1); }
+.bfail { background: var(--terra);  opacity: .6; transition: height .6s cubic-bezier(.4,0,.2,1); }
+.bpend { background: var(--sand);   opacity: .8; transition: height .6s cubic-bezier(.4,0,.2,1); }
+.bret  { background: var(--indigo); opacity: .7; transition: height .6s cubic-bezier(.4,0,.2,1); }
+.bday  { font-size: 9px; color: var(--text3); position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); white-space: nowrap; }
 .btip  {
   display: none; position: absolute; bottom: calc(100% + 6px); left: 50%;
   transform: translateX(-50%);
@@ -256,12 +219,7 @@ html.dark .theme-toggle::after { transform: translateX(18px); background: var(--
 .fcount { font-size: 11px; color: var(--text3); margin-left: auto; letter-spacing: 0.3px; }
 
 /* ── Table ── */
-.twrap {
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: var(--r);
-  overflow: hidden;
-}
+.twrap { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; }
 table { width: 100%; border-collapse: collapse; }
 thead tr { border-bottom: 1px solid var(--border2); }
 th {
@@ -270,78 +228,83 @@ th {
   letter-spacing: 1.2px; color: var(--text3); font-weight: 500;
   background: var(--thead-bg);
 }
-tbody tr {
-  border-bottom: 1px solid var(--border);
-  transition: background .15s, transform .15s;
-  cursor: default;
-}
+tbody tr { border-bottom: 1px solid var(--border); transition: background .15s; cursor: default; }
 tbody tr:last-child { border-bottom: none; }
 tbody tr:hover { background: var(--cream2); }
-tbody tr:hover td:first-child { padding-left: 24px; }
-td { padding: 14px 20px; transition: padding .15s; }
+td { padding: 14px 20px; }
 
-/* Status pill — traducido */
-.status-pill {
-  display: inline-flex; align-items: center; gap: 6px;
-  padding: 4px 12px; border-radius: 20px;
-  font-size: 11px; font-weight: 400; letter-spacing: 0.2px;
-}
+tr.es-reintento { background: var(--indigo-dim); border-left: 2px solid var(--indigo); }
+tr.es-reintento:hover { background: rgba(107,125,181,0.18); }
+
+.status-pill { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 400; }
 .status-pill .dot { width: 5px; height: 5px; border-radius: 50%; }
 
-/* Light mode: stronger contrast for status pills */
-:root .status-pill { filter: saturate(1.1); }
-/* Darken the inline bg colors on light mode pills */
-.status-pill { border: 1px solid rgba(0,0,0,0.08); }
-html.dark .status-pill { border: none; }
-
-/* Badges resultado */
-.bdg {
-  display: inline-flex; align-items: center; gap: 5px;
-  padding: 4px 12px; border-radius: 20px;
-  font-size: 11px; font-weight: 500; letter-spacing: 0.2px;
-  transition: all .2s;
-}
-.bdg-ok     { background: rgba(100,148,106,0.16); color: #3d6b42;  border: 1px solid rgba(80,130,86,0.35); }
-.bdg-fail   { background: rgba(184,92,74,0.14);    color: #9c3d2c;  border: 1px solid rgba(184,92,74,0.32); }
-.bdg-pend   { background: rgba(100,148,106,0.13);  color: #4a7a50;  border: 1px solid rgba(80,130,86,0.28); }
-html.dark .bdg-ok   { background: var(--sage-dim);  color: var(--sage2);  border: 1px solid rgba(74,222,128,0.2); }
-html.dark .bdg-fail { background: var(--clay-dim);  color: var(--clay);   border: 1px solid rgba(248,113,113,0.2); }
-html.dark .bdg-pend { background: var(--sage-dim);  color: var(--sage2);  border: 1px solid rgba(74,222,128,0.2); }
-
+.bdg { display: inline-flex; align-items: center; gap: 5px; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 500; transition: all .2s; }
+.bdg-ok   { background: var(--sage-dim);  color: var(--sage2); border: 1px solid rgba(122,158,126,0.2); }
+.bdg-fail { background: var(--clay-dim);  color: var(--clay);  border: 1px solid rgba(184,92,74,0.2); }
+.bdg-pend { background: var(--terra-dim); color: var(--terra); border: 1px solid rgba(193,127,90,0.2); }
 tbody tr:hover .bdg { transform: scale(1.04); }
 
-/* Empty */
-.empty td {
-  text-align: center; padding: 64px;
-  color: var(--text3); font-size: 13px;
-  font-family: 'DM Sans', sans-serif;
-  font-style: normal;
+.bdg-ret {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 2px 8px; border-radius: 20px;
+  font-size: 10px; font-weight: 600;
+  background: var(--indigo-dim); color: var(--indigo);
+  border: 1px solid rgba(107,125,181,0.25);
+  margin-left: 6px; vertical-align: middle;
 }
+.retry-prefix { color: var(--indigo); font-size: 11px; margin-right: 4px; opacity: 0.7; }
 
-/* Loader */
-#loader {
-  position: fixed; inset: 0; background: var(--cream);
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  z-index: 200; transition: opacity .5s;
+.empty td { text-align: center; padding: 64px; color: var(--text3); font-size: 13px; font-family: 'Cormorant Garamond', serif; font-style: italic; }
+
+/* ── Paginación ── */
+.pag-wrap {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 20px;
+  border-top: 1px solid var(--border);
+  background: var(--thead-bg);
+  border-radius: 0 0 var(--r) var(--r);
+  flex-wrap: wrap; gap: 10px;
 }
+.pag-info { font-size: 11px; color: var(--text3); letter-spacing: 0.3px; }
+.pag-controls { display: flex; align-items: center; gap: 4px; }
+
+.pag-btn {
+  min-width: 32px; height: 32px; padding: 0 10px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text2); font-size: 12px;
+  cursor: pointer; transition: all .15s;
+  font-family: 'DM Sans', sans-serif;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.pag-btn:hover:not(:disabled) { background: var(--cream2); border-color: var(--stone); color: var(--bark); }
+.pag-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+.pag-btn.active { background: var(--bark); border-color: var(--bark); color: var(--cream); font-weight: 600; }
+html.dark .pag-btn.active { background: var(--cream3); border-color: var(--cream3); color: var(--bark); }
+
+.pag-ellipsis { font-size: 12px; color: var(--text3); padding: 0 4px; }
+
+.per-page-select {
+  background: var(--input-bg); border: 1px solid var(--border);
+  border-radius: 8px; padding: 6px 10px;
+  color: var(--text); font-size: 11px; outline: none;
+  font-family: 'DM Sans', sans-serif; cursor: pointer;
+  transition: border-color .2s;
+}
+.per-page-select:focus { border-color: var(--stone); }
+
+/* ── Loader ── */
+#loader { position: fixed; inset: 0; background: var(--cream); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 200; transition: opacity .5s; }
 #loader.hidden { opacity: 0; pointer-events: none; }
 @keyframes spin { to { transform: rotate(360deg); } }
-.spinner {
-  width: 32px; height: 32px;
-  border: 1.5px solid var(--cream3);
-  border-top-color: var(--sage);
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-  margin-bottom: 14px;
-}
-.loader-txt { font-size: 13px; color: var(--text3); font-style: normal; font-family: 'DM Sans', sans-serif; }
+.spinner { width: 32px; height: 32px; border: 1.5px solid var(--cream3); border-top-color: var(--sage); border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 14px; }
+.loader-txt { font-size: 13px; color: var(--text3); font-style: italic; font-family: 'Cormorant Garamond', serif; }
 
-/* Footer */
 footer { margin-top: 32px; padding: 20px 0; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
 .fnote { font-size: 11px; color: var(--text3); letter-spacing: 0.3px; }
 
-/* Animaciones */
 @keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
 .fu  { animation: fadeUp .5s ease both; }
 .fu1 { animation-delay: .05s; }
@@ -349,12 +312,7 @@ footer { margin-top: 32px; padding: 20px 0; border-top: 1px solid var(--border);
 .fu3 { animation-delay: .15s; }
 .fu4 { animation-delay: .2s; }
 
-/* Divisor decorativo */
-.divider {
-  display: flex; align-items: center; gap: 12px;
-  margin: 0 0 20px; color: var(--text3); font-size: 11px;
-  letter-spacing: 1px; text-transform: uppercase;
-}
+.divider { display: flex; align-items: center; gap: 12px; margin: 0 0 20px; color: var(--text3); font-size: 11px; letter-spacing: 1px; text-transform: uppercase; }
 .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 </style>
 </head>
@@ -415,10 +373,10 @@ footer { margin-top: 32px; padding: 20px 0; border-top: 1px solid var(--border);
       <div class="stat-val" id="s-fail">—</div>
       <div class="pbar"><div class="pbar-f" id="pb-fail" style="background:#b71c1c;width:0%"></div></div>
     </div>
-    <div class="stat" style="--ac:#6aab70">
+    <div class="stat" style="--ac:#c05e20">
       <div class="stat-icon">◌</div>
       <div class="stat-lbl">Pendientes</div>
-      <div class="stat-val" id="s-pend" style="color:#6aab70">—</div>
+      <div class="stat-val" id="s-pend">—</div>
       <div class="stat-sub">en espera de resultado</div>
     </div>
     <div class="stat" style="--ac:#5c35a0">
@@ -432,6 +390,12 @@ footer { margin-top: 32px; padding: 20px 0; border-top: 1px solid var(--border);
       <div class="stat-lbl">Hoy</div>
       <div class="stat-val" id="s-hoy">—</div>
       <div class="stat-sub">llamadas hoy</div>
+    </div>
+    <div class="stat" style="--ac:#6b7db5">
+      <div class="stat-icon">↺</div>
+      <div class="stat-lbl">Reintentos</div>
+      <div class="stat-val" id="s-ret">—</div>
+      <div class="stat-sub" id="s-ret-sub">—</div>
     </div>
   </div>
 
@@ -452,14 +416,19 @@ footer { margin-top: 32px; padding: 20px 0; border-top: 1px solid var(--border);
   <div class="divider fu fu2">Registros</div>
 
   <div class="filters fu fu2">
-    <input class="finp" id="fq" placeholder="Buscar por nombre, teléfono o email…" style="width:260px" oninput="filtrar()">
-    <select class="finp" id="fst" onchange="filtrar()">
+    <input class="finp" id="fq" placeholder="Buscar por nombre, teléfono o email…" style="width:260px" oninput="onFiltrar()">
+    <select class="finp" id="fst" onchange="onFiltrar()">
       <option value="">Todos los resultados</option>
       <option value="ok">Contestadas</option>
       <option value="fail">No contestadas</option>
       <option value="pend">Pendientes</option>
     </select>
-    <select class="finp" id="ford" onchange="filtrar()">
+    <select class="finp" id="fint" onchange="onFiltrar()">
+      <option value="">Todos los intentos</option>
+      <option value="1">Solo primeros intentos</option>
+      <option value="2">Solo reintentos</option>
+    </select>
+    <select class="finp" id="ford" onchange="onFiltrar()">
       <option value="desc">Más reciente primero</option>
       <option value="asc">Más antigua primero</option>
     </select>
@@ -476,33 +445,52 @@ footer { margin-top: 32px; padding: 20px 0; border-top: 1px solid var(--border);
           <th>Estado final</th>
           <th>Motivo</th>
           <th style="text-align:center">Resultado</th>
-          <th>Duración</th>
+          <th style="text-align:center">Duración</th>
+          <th style="text-align:center">¿Escuchó?</th>
+          <th style="text-align:center">Intento</th>
           <th>Fecha</th>
         </tr>
       </thead>
       <tbody id="tbody"></tbody>
     </table>
+    <!-- Paginación dentro del card -->
+    <div class="pag-wrap" id="pag-wrap">
+      <div class="pag-info" id="pag-info"></div>
+      <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+        <div style="display:flex;align-items:center;gap:8px">
+          <span style="font-size:11px;color:var(--text3)">Filas por página</span>
+          <select class="per-page-select" id="per-page" onchange="onPerPage()">
+            <option value="25">25</option>
+            <option value="50" selected>50</option>
+            <option value="100">100</option>
+          </select>
+        </div>
+        <div class="pag-controls" id="pag-controls"></div>
+      </div>
+    </div>
   </div>
 
   <footer class="fu fu4">
-    <div class="fnote"><span id="fn">0</span> registros · Actualización automática cada 60 seg.</div>
-    <div class="fnote" style="font-size:11px;color:var(--stone)">con intención y claridad ◦</div>
+    <div class="fnote"><span id="fn">0</span> registros totales · Actualización automática cada 60 seg.</div>
+    <div class="fnote" style="font-style:italic;font-family:'Cormorant Garamond',serif;font-size:13px;color:var(--stone)">con intención y claridad ◦</div>
   </footer>
 </div>
 
 <script>
 const API_URL = 'https://hsk-n8n.ju2hpi.easypanel.host/webhook/dashboard-data';
 
-let todos = [], filtrados = [];
+let todos     = [];
+let filtrados = [];
+let paginaActual  = 1;
+let porPagina     = 50;
 
 // ── Tema ──
 function toggleTema() {
   const dark = document.documentElement.classList.toggle('dark');
   document.getElementById('theme-label').textContent = dark ? '☽' : '☀︎';
   try { localStorage.setItem('tema', dark ? 'dark' : 'light'); } catch(e){}
-  donut(); // re-render donut con colores correctos
+  donut();
 }
-// Cargar tema guardado
 try {
   if (localStorage.getItem('tema') === 'dark') {
     document.documentElement.classList.add('dark');
@@ -513,14 +501,12 @@ try {
   }
 } catch(e){}
 
-// ── Traducción de estados técnicos a lenguaje humano ──
+// ── Traducciones ──
 const ESTADO_LABEL = {
-  // Estados iniciales (al disparar)
   'PENDING_ENROUTE':          'Llamada en camino',
   'PENDING_ACCEPTED':         'Llamada aceptada',
   'PENDING_WAITING_DELIVERY': 'Esperando conexión',
   'MESSAGE_ACCEPTED':         'Aceptada por red',
-  // Estados finales (al terminar la llamada)
   'DELIVERED_TO_HANDSET':     'Llamada contestada',
   'DELIVERED_TO_TERMINAL':    'Llamada contestada',
   'DELIVERED_TO_OPERATOR':    'Conectada al operador',
@@ -529,78 +515,45 @@ const ESTADO_LABEL = {
   'CALL_FAILED':              'Llamada fallida',
   'UNDELIVERABLE':            'No se pudo entregar',
   'REJECTED':                 'Número rechazado',
-  'REJECTED_NETWORK':         'Red rechazó la llamada',
-  'REJECTED_PREPAID_MISSING_FUNDS': 'Saldo insuficiente',
   'NO_ANSWER':                'Sin respuesta',
   'BUSY':                     'Línea ocupada',
   'EXPIRED':                  'Tiempo agotado',
-  'EXPIRED_EXPIRED':          'No contestó (tiempo agotado)',
   'VOICEMAIL':                'Buzón de voz',
   'UNKNOWN':                  'Estado desconocido',
 };
-
-// Traducción del motivo de cierre (error.name de Infobip)
 const MOTIVO_LABEL = {
-  // Finales exitosos
-  'NORMAL_HANGUP':                              'Llamada completada',
-  // Sin respuesta / rechazos
-  'BUSY':                                       'Línea ocupada',
-  'NO_ANSWER':                                  'No contestó',
-  'REJECTED':                                   'Llamada rechazada',
-  'REJECTED_PREPAID_MISSING_FUNDS':             'Saldo insuficiente',
-  'REJECTED_NETWORK':                           'Red rechazó la llamada',
-  'REJECTED_DESTINATION':                       'Destino rechazado',
-  'REJECTED_ROUTE':                             'Ruta no disponible',
-  // Expirados
-  'UNDELIVERABLE':                              'No entregada',
-  'EXPIRED':                                    'Tiempo agotado',
-  'EXPIRED_EXPIRED':                            'No contestó (tiempo agotado)',
-  // Errores de cuenta / configuración
-  'EC_ACCOUNT_NOT_PROVISIONED_FOR_SMS':         'Cuenta sin permisos de voz',
-  'EC_ACCOUNT_NOT_PROVISIONED':                 'Cuenta no configurada',
-  'EC_SYSTEM_ERROR':                            'Error interno del proveedor',
-  'EC_ABSENT_SUBSCRIBER_TEMPORARY':             'Suscriptor temporalmente no disponible',
-  'EC_ABSENT_SUBSCRIBER_PERMANENT':             'Número fuera de servicio',
-  'EC_CALL_BARRED':                             'Llamadas bloqueadas en este número',
-  'EC_NUMBER_FORMAT_ERROR':                     'Formato de número inválido',
-  'EC_DESTINATION_FAILED':                      'Destino no alcanzable',
-  // Generales
-  'CALL_FAILED':                                'Error en llamada',
-  'NOT_DELIVERED':                              'No entregada',
+  'NORMAL_HANGUP': 'Llamada completada',
+  'BUSY':          'Línea ocupada',
+  'NO_ANSWER':     'No contestó',
+  'REJECTED':      'Llamada rechazada',
+  'UNDELIVERABLE': 'No entregada',
+  'EXPIRED':       'Tiempo agotado',
+  'CALL_FAILED':   'Error en llamada',
+  'NOT_DELIVERED': 'No entregada',
 };
+function traducirEstado(s) { return ESTADO_LABEL[s] || s || '—'; }
+function traducirMotivo(s) { return MOTIVO_LABEL[s] || s || '—'; }
 
-function traducirEstado(s) {
-  return ESTADO_LABEL[s] || s || '—';
-}
-function traducirMotivo(s) {
-  return MOTIVO_LABEL[s] || s || '—';
-}
-
-// Estados finales de Infobip (cuando la llamada ya terminó)
 const OK_FINAL   = new Set(['DELIVERED_TO_HANDSET','DELIVERED_TO_TERMINAL','DELIVERED_TO_OPERATOR','CALL_ANSWERED']);
-const FAIL_FINAL = new Set(['NOT_DELIVERED','CALL_FAILED','UNDELIVERABLE','REJECTED','REJECTED_NETWORK','REJECTED_PREPAID_MISSING_FUNDS','NO_ANSWER','BUSY','EXPIRED','EXPIRED_EXPIRED','VOICEMAIL']);
-// Estados iniciales (llamada aceptada pero aún sin resultado)
-const PENDIENTE  = new Set(['PENDING_ACCEPTED','PENDING_ENROUTE','PENDING_WAITING_DELIVERY','MESSAGE_ACCEPTED']);
+const FAIL_FINAL = new Set(['NOT_DELIVERED','CALL_FAILED','UNDELIVERABLE','REJECTED','NO_ANSWER','BUSY','EXPIRED','VOICEMAIL']);
 
 function resultado(r) {
-  // Usar status — el Flujo 3 lo sobreescribe con el valor final cuando termina la llamada
   const s = r.status || '';
-  if (OK_FINAL.has(s))  return 'ok';
+  if (OK_FINAL.has(s))   return 'ok';
   if (FAIL_FINAL.has(s)) return 'fail';
-  return 'pend'; // PENDING_ACCEPTED u otros estados iniciales
+  return 'pend';
 }
+function esReintento(r) { return Number(r.intento) === 2; }
 
 // ── Carga ──
 async function cargar() {
   const btn = document.getElementById('btn-refresh');
   btn.textContent = '↻ Cargando…';
-  btn.disabled = true;
-  btn.style.opacity = '0.6';
+  btn.disabled = true; btn.style.opacity = '0.6';
   try {
-    const r = await fetch(API_URL + '?t=' + Date.now()); // evitar caché
-    const json = await r.json();
-    // Ordenar por id descendente (más reciente primero) al cargar
-    const raw = json.tabla || (Array.isArray(json) ? json : []);
+    const res  = await fetch(API_URL + '?t=' + Date.now());
+    const json = await res.json();
+    const raw  = json.tabla || (Array.isArray(json) ? json : []);
     todos = raw.sort((a, b) => (b.id || 0) - (a.id || 0));
     setLive('En vivo', 'sage');
   } catch {
@@ -615,14 +568,11 @@ async function cargar() {
 function restaurarBtn() {
   const btn = document.getElementById('btn-refresh');
   btn.textContent = '↻ Actualizar';
-  btn.disabled = false;
-  btn.style.opacity = '1';
+  btn.disabled = false; btn.style.opacity = '1';
 }
-
 function ocultarLoader() {
   setTimeout(() => document.getElementById('loader').classList.add('hidden'), 400);
 }
-
 function setLive(txt, c) {
   const p = document.getElementById('live-pill');
   const d = p.querySelector('.live-dot');
@@ -643,6 +593,7 @@ function renderizar() {
   document.getElementById('fn').textContent = todos.length;
 }
 
+// ── Stats ──
 function stats() {
   const T    = todos.length;
   const ok   = todos.filter(r => resultado(r)==='ok').length;
@@ -650,24 +601,28 @@ function stats() {
   const pend = todos.filter(r => resultado(r)==='pend').length;
   const tasa = (ok+fail) > 0 ? Math.round(ok/(ok+fail)*100) : 0;
   const hoy  = new Date().toDateString();
-  // Usar createdAt (fecha real de inserción en la tabla)
-  const hoyN = todos.filter(r => {
-    const f = new Date(r.createdAt);
-    return !isNaN(f) && f.toDateString() === hoy;
-  }).length;
+  const hoyN = todos.filter(r => { const f=new Date(r.createdAt); return !isNaN(f) && f.toDateString()===hoy; }).length;
+  const reintentos     = todos.filter(esReintento);
+  const retTotal       = reintentos.length;
+  const retContestadas = reintentos.filter(r => resultado(r)==='ok').length;
 
-  document.getElementById('s-tot').textContent  = T;
-  document.getElementById('s-ok').textContent   = ok;
-  document.getElementById('s-fail').textContent = fail;
-  document.getElementById('s-pend').textContent = pend;
-  document.getElementById('s-tasa').textContent = tasa+'%';
-  document.getElementById('s-hoy').textContent  = hoyN;
-  document.getElementById('pb-ok').style.width   = T ? Math.round(ok/T*100)+'%' : '0%';
+  document.getElementById('s-tot').textContent   = T;
+  document.getElementById('s-ok').textContent    = ok;
+  document.getElementById('s-fail').textContent  = fail;
+  document.getElementById('s-pend').textContent  = pend;
+  document.getElementById('s-tasa').textContent  = tasa+'%';
+  document.getElementById('s-hoy').textContent   = hoyN;
+  document.getElementById('s-ret').textContent   = retTotal;
+  document.getElementById('pb-ok').style.width   = T ? Math.round(ok/T*100)+'%'   : '0%';
   document.getElementById('pb-fail').style.width = T ? Math.round(fail/T*100)+'%' : '0%';
+  const pctRet = retTotal > 0 ? Math.round(retContestadas/retTotal*100) : 0;
+  document.getElementById('s-ret-sub').textContent =
+    retTotal > 0 ? `${retContestadas} contestadas (${pctRet}%)` : 'ninguno aún';
 }
 
+// ── Donut ──
 function donut() {
-  const T    = todos.length || 1;
+  const T  = todos.length || 1;
   const ok   = todos.filter(r => resultado(r)==='ok').length;
   const fail = todos.filter(r => resultado(r)==='fail').length;
   const pend = T - ok - fail;
@@ -678,128 +633,153 @@ function donut() {
     : [{v:ok,c:'#2e7d32'},{v:fail,c:'#b71c1c'},{v:pend,c:'#c05e20'}];
   const donutText = dark ? '#ffffff' : '#111008';
   const donutSub  = dark ? '#777777' : '#a89880';
-  let off=0,paths='';
-  segs.forEach(s=>{
-    const d=(s.v/T)*circ;
-    paths+=`<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${s.c}" stroke-width="${sw}" stroke-dasharray="${d} ${circ-d}" stroke-dashoffset="${-off}" transform="rotate(-90 ${cx} ${cy})" opacity="${dark?'1':'.9'}"/>`;
-    off+=d;
+  let off=0, paths='';
+  segs.forEach(s => {
+    const d = (s.v/T)*circ;
+    paths += `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${s.c}" stroke-width="${sw}" stroke-dasharray="${d} ${circ-d}" stroke-dashoffset="${-off}" transform="rotate(-90 ${cx} ${cy})" opacity="${dark?'1':'.9'}"/>`;
+    off += d;
   });
   const pct = (ok+fail)>0 ? Math.round(ok/(ok+fail)*100) : 0;
   document.getElementById('donut').innerHTML = paths +
     `<text x="${cx}" y="${cy-4}" text-anchor="middle" font-size="15" font-weight="800" font-family="Plus Jakarta Sans,sans-serif" fill="${donutText}">${pct}%</text>
      <text x="${cx}" y="${cy+12}" text-anchor="middle" font-size="8" font-family="DM Sans,sans-serif" fill="${donutSub}" letter-spacing="0.8">ÉXITO</text>`;
-
   const legSegs = dark
     ? [{l:'Contestadas',v:ok,c:'#4ade80'},{l:'No contestadas',v:fail,c:'#f87171'},{l:'Pendientes',v:pend,c:'#fb923c'}]
     : [{l:'Contestadas',v:ok,c:'#2e7d32'},{l:'No contestadas',v:fail,c:'#b71c1c'},{l:'Pendientes',v:pend,c:'#c05e20'}];
   document.getElementById('dleg').innerHTML = legSegs
     .map(s=>`<div class="drow"><div class="ddot" style="background:${s.c}"></div><div class="dname">${s.l}</div><div class="dval">${s.v}</div></div>`).join('')+
-  `<div class="drow dsep"><div class="ddot" style="background:var(--text3)"></div><div class="dname">Total</div><div class="dval">${todos.length}</div></div>`;
+    `<div class="drow dsep"><div class="ddot" style="background:var(--text3)"></div><div class="dname">Total</div><div class="dval">${todos.length}</div></div>`;
 }
 
+// ── Barras ──
 function barras() {
-  const dias=[];
-  for(let i=6;i>=0;i--){
-    const d=new Date(); d.setDate(d.getDate()-i);
-    const ds=d.toDateString();
-    // Usar createdAt como fecha real del registro
-    const enDia = r => { const f=new Date(r.createdAt); return !isNaN(f) && f.toDateString()===ds; };
-    const ok   = todos.filter(r => enDia(r) && resultado(r)==='ok').length;
-    const fail = todos.filter(r => enDia(r) && resultado(r)==='fail').length;
-    const pend = todos.filter(r => enDia(r) && resultado(r)==='pend').length;
-    dias.push({l:d.toLocaleDateString('es',{weekday:'short'}),ok,fail,pend,t:ok+fail+pend});
+  const dias = [];
+  for (let i=6; i>=0; i--) {
+    const d  = new Date(); d.setDate(d.getDate()-i);
+    const ds = d.toDateString();
+    const enDia = r => { const f=new Date(r.createdAt); return !isNaN(f)&&f.toDateString()===ds; };
+    const ok   = todos.filter(r => enDia(r)&&resultado(r)==='ok').length;
+    const fail = todos.filter(r => enDia(r)&&resultado(r)==='fail').length;
+    const pend = todos.filter(r => enDia(r)&&resultado(r)==='pend').length;
+    const ret  = todos.filter(r => enDia(r)&&esReintento(r)).length;
+    dias.push({l:d.toLocaleDateString('es',{weekday:'short'}),ok,fail,pend,ret,t:ok+fail+pend});
   }
-  const maxV=Math.max(...dias.map(d=>d.t),1);
-  document.getElementById('bchart').innerHTML = dias.map(d=>{
-    const h=Math.round((d.t/maxV)*80);
-    const hf=d.t?Math.round((d.fail/d.t)*h):0;
-    const ho=d.t?Math.round((d.ok/d.t)*h):0;
-    const hp=h-hf-ho;
+  const maxV = Math.max(...dias.map(d=>d.t),1);
+  document.getElementById('bchart').innerHTML = dias.map(d => {
+    const h  = Math.round((d.t/maxV)*80);
+    const hf = d.t ? Math.round((d.fail/d.t)*h) : 0;
+    const ho = d.t ? Math.round((d.ok/d.t)*h)   : 0;
+    const hr = d.t ? Math.round((d.ret/d.t)*h)  : 0;
+    const hp = Math.max(0, h-hf-ho);
     return `<div class="bcol">
-      <div class="btip">${d.ok} contestadas · ${d.fail} sin resp. · ${d.pend} pend.</div>
+      <div class="btip">${d.ok} contestadas · ${d.fail} sin resp. · ${d.pend} pend. · ${d.ret} reintentos</div>
       <div class="bstack" style="height:${h}px">
         <div class="bpend" style="height:${hp}px"></div>
         <div class="bfail" style="height:${hf}px"></div>
         <div class="bok"   style="height:${ho}px"></div>
+        <div class="bret"  style="height:${hr}px"></div>
       </div>
       <div class="bday">${d.l}</div>
     </div>`;
   }).join('');
 }
 
+// ── Filtros → resetea a página 1 ──
+function onFiltrar() { paginaActual = 1; filtrar(); }
+function onPerPage() {
+  porPagina = Number(document.getElementById('per-page').value);
+  paginaActual = 1;
+  tabla();
+  paginacion();
+}
+
 function filtrar() {
-  const q  = document.getElementById('fq').value.toLowerCase();
-  const st = document.getElementById('fst').value;
-  const or = document.getElementById('ford').value;
+  const q    = document.getElementById('fq').value.toLowerCase();
+  const st   = document.getElementById('fst').value;
+  const fint = document.getElementById('fint').value;
+  const or   = document.getElementById('ford').value;
+
   filtrados = todos
     .filter(r =>
-      (!q  || (r.nombre||r.name||'').toLowerCase().includes(q) ||
-               (r.telefono||r.phone||'').includes(q) ||
-               (r.email||'').toLowerCase().includes(q)) &&
-      (!st || resultado(r) === st)
+      (!q    || (r.nombre||r.name||'').toLowerCase().includes(q) ||
+                 (r.telefono||r.phone||'').includes(q) ||
+                 (r.email||'').toLowerCase().includes(q)) &&
+      (!st   || resultado(r) === st) &&
+      (!fint || String(r.intento || 1) === fint)
     )
-    .sort((a, b) => {
-      // Usar createdAt si existe, si no id, si no timestamp
-      const va = a.createdAt ? new Date(a.createdAt) : (a.id || 0);
-      const vb = b.createdAt ? new Date(b.createdAt) : (b.id || 0);
-      return or === 'asc' ? va - vb : vb - va;
+    .sort((a,b) => {
+      const va = a.createdAt ? new Date(a.createdAt) : (a.id||0);
+      const vb = b.createdAt ? new Date(b.createdAt) : (b.id||0);
+      return or==='asc' ? va-vb : vb-va;
     });
+
   document.getElementById('fcount').textContent = `${filtrados.length} de ${todos.length}`;
   tabla();
+  paginacion();
+}
+
+// ── Tabla (solo la página actual) ──
+function telefonosConReintento() {
+  const s = new Set();
+  todos.filter(esReintento).forEach(r => { const t=r.telefono||r.phone||''; if(t) s.add(t); });
+  return s;
 }
 
 function tabla() {
-  const tb = document.getElementById('tbody');
+  const tb      = document.getElementById('tbody');
+  const retTels = telefonosConReintento();
+
   if (!filtrados.length) {
-    tb.innerHTML='<tr class="empty"><td colspan="9">No hay registros que coincidan con tu búsqueda</td></tr>';
+    tb.innerHTML = '<tr class="empty"><td colspan="10">No hay registros que coincidan con tu búsqueda</td></tr>';
     return;
   }
-  tb.innerHTML = filtrados.map(r => {
-    const res = resultado(r);
 
-    // Badge resultado
+  // Slice de la página actual
+  const inicio  = (paginaActual - 1) * porPagina;
+  const fin     = inicio + porPagina;
+  const pagina  = filtrados.slice(inicio, fin);
+
+  tb.innerHTML = pagina.map(r => {
+    const res   = resultado(r);
+    const retry = esReintento(r);
+    const tel   = r.telefono || r.phone || '';
+
     const bdg = res==='ok'
       ? `<span class="bdg bdg-ok">✓ Contestó</span>`
       : res==='fail'
       ? `<span class="bdg bdg-fail">○ No contestó</span>`
       : `<span class="bdg bdg-pend">◌ Pendiente</span>`;
 
-    // Color según resultado
-    // PENDING_ACCEPTED/ENROUTE/etc = verde claro; errores no mapeados = amarillo/terra
-    const esPendienteVerde = new Set(['PENDING_ACCEPTED','PENDING_ENROUTE','PENDING_WAITING_DELIVERY','MESSAGE_ACCEPTED']).has(r.status || '');
-    const stColor = res==='ok'   ? 'var(--sage)'
-                  : res==='fail' ? 'var(--clay)'
-                  : esPendienteVerde ? '#6aab70'       // verde claro — aceptada pero sin resultado
-                  : 'var(--terra)';                    // amarillo/terra — error desconocido
-    const stBg    = res==='ok'   ? 'var(--sage-dim)'
-                  : res==='fail' ? 'var(--clay-dim)'
-                  : esPendienteVerde ? 'rgba(106,171,112,0.12)'
-                  : 'var(--terra-dim)';
+    const stColor = res==='ok' ? 'var(--sage)' : res==='fail' ? 'var(--clay)' : 'var(--terra)';
+    const stBg    = res==='ok' ? 'var(--sage-dim)' : res==='fail' ? 'var(--clay-dim)' : 'var(--terra-dim)';
 
-    // Estado traducido — solo status (el Flujo 3 lo actualiza con el valor final)
-    const stLabel = traducirEstado(r.status);
+    const dur        = r.duracion ? `${r.duracion}s` : '—';
+    const audio      = r.audio_completo || '—';
+    const audioColor = audio==='Sí' ? 'var(--sage2)' : audio==='No' ? 'var(--clay)' : 'var(--text3)';
 
-    // Motivo de cierre — viene del Flujo 3 (error.name de Infobip)
-    const motivo = r.motivo_cierre ? traducirMotivo(r.motivo_cierre) : '—';
-
-    // Duración en segundos
-    const dur = r.duracion ? `${r.duracion}s` : '—';
-
-
-    // Fecha usando createdAt (fecha real de inserción)
     const f    = new Date(r.createdAt);
     const fStr = isNaN(f) ? '—' : f.toLocaleDateString('es',{day:'2-digit',month:'short',year:'2-digit'});
-    const hStr = isNaN(f) ? '' : f.toLocaleTimeString('es',{hour:'2-digit',minute:'2-digit'});
+    const hStr = isNaN(f) ? ''  : f.toLocaleTimeString('es',{hour:'2-digit',minute:'2-digit'});
 
-    // Campos de contacto — acepta nombre/name y telefono/phone por compatibilidad
     const nombre   = r.nombre   || r.name    || '—';
     const email    = r.email    || '—';
-    const telefono = r.telefono || r.phone   || '—';
+    const telefono = tel        || '—';
     const pais     = r.pais     || r.country || '—';
 
-    return `<tr>
+    const retBadge = retry
+      ? `<span class="bdg-ret">↺ Reintento</span>`
+      : (retTels.has(tel) && !retry)
+        ? `<span style="font-size:10px;color:var(--text3);margin-left:6px" title="Este contacto tiene un reintento">↻</span>`
+        : '';
+
+    const prefix      = retry ? `<span class="retry-prefix">└─</span>` : '';
+    const intentoCell = retry
+      ? `<span style="font-size:11px;font-weight:600;color:var(--indigo)">↺ 2°</span>`
+      : `<span style="font-size:11px;color:var(--text3)">1°</span>`;
+
+    return `<tr class="${retry?'es-reintento':''}">
       <td>
-        <div style="font-size:13px;font-weight:500;color:var(--bark)">${nombre}</div>
+        <div style="font-size:13px;font-weight:500;color:var(--bark);display:flex;align-items:center;flex-wrap:wrap;gap:2px">${prefix}${nombre}${retBadge}</div>
         <div style="font-size:11px;color:var(--text3);margin-top:2px">${email}</div>
       </td>
       <td style="font-size:12px;color:var(--text2);letter-spacing:0.3px">${telefono}</td>
@@ -807,18 +787,73 @@ function tabla() {
       <td>
         <span class="status-pill" style="background:${stBg};color:${stColor}">
           <span class="dot" style="background:${stColor}"></span>
-          ${stLabel}
+          ${traducirEstado(r.status)}
         </span>
       </td>
-      <td style="font-size:11px;color:var(--text2)">${motivo}</td>
+      <td style="font-size:11px;color:var(--text2)">${r.motivo_cierre ? traducirMotivo(r.motivo_cierre) : '—'}</td>
       <td style="text-align:center">${bdg}</td>
       <td style="font-size:12px;color:var(--text2);text-align:center">${dur}</td>
+      <td style="font-size:11px;font-weight:600;color:${audioColor};text-align:center">${audio}</td>
+      <td style="text-align:center">${intentoCell}</td>
       <td>
         <div style="font-size:12px;color:var(--text)">${fStr}</div>
         <div style="font-size:10px;color:var(--text3);margin-top:2px">${hStr}</div>
       </td>
     </tr>`;
   }).join('');
+}
+
+// ── Paginación ──
+function paginacion() {
+  const total    = filtrados.length;
+  const totPags  = Math.max(1, Math.ceil(total / porPagina));
+  const inicio   = total === 0 ? 0 : (paginaActual - 1) * porPagina + 1;
+  const fin      = Math.min(paginaActual * porPagina, total);
+
+  document.getElementById('pag-info').textContent =
+    total === 0 ? 'Sin resultados' : `Mostrando ${inicio}–${fin} de ${total}`;
+
+  // Números de página a mostrar (máximo 7 botones con elipsis)
+  const paginas  = paginasVisibles(paginaActual, totPags);
+  const ctrl     = document.getElementById('pag-controls');
+
+  let html = `<button class="pag-btn" onclick="irA(${paginaActual-1})" ${paginaActual===1?'disabled':''}>‹</button>`;
+
+  paginas.forEach(p => {
+    if (p === '…') {
+      html += `<span class="pag-ellipsis">…</span>`;
+    } else {
+      html += `<button class="pag-btn ${p===paginaActual?'active':''}" onclick="irA(${p})">${p}</button>`;
+    }
+  });
+
+  html += `<button class="pag-btn" onclick="irA(${paginaActual+1})" ${paginaActual===totPags?'disabled':''}>›</button>`;
+  ctrl.innerHTML = html;
+}
+
+// Genera el array de páginas con elipsis: [1, '…', 4, 5, 6, '…', 12]
+function paginasVisibles(actual, total) {
+  if (total <= 7) return Array.from({length: total}, (_, i) => i+1);
+  const pages = new Set([1, total, actual]);
+  if (actual > 1) pages.add(actual-1);
+  if (actual < total) pages.add(actual+1);
+  const sorted = [...pages].sort((a,b)=>a-b);
+  const result = [];
+  sorted.forEach((p, i) => {
+    if (i > 0 && p - sorted[i-1] > 1) result.push('…');
+    result.push(p);
+  });
+  return result;
+}
+
+function irA(n) {
+  const totPags = Math.max(1, Math.ceil(filtrados.length / porPagina));
+  if (n < 1 || n > totPags) return;
+  paginaActual = n;
+  tabla();
+  paginacion();
+  // Scroll suave hasta la tabla
+  document.querySelector('.twrap').scrollIntoView({behavior:'smooth', block:'start'});
 }
 
 cargar();
