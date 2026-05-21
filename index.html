@@ -26,6 +26,8 @@
   --clay-dim:   rgba(184,92,74,0.1);
   --indigo:     #6b7db5;
   --indigo-dim: rgba(107,125,181,0.12);
+  --gold:       #9a7b30;
+  --gold-dim:   rgba(154,123,48,0.12);
   --text:       #111008;
   --text2:      #3a3028;
   --text3:      #7a6a58;
@@ -56,6 +58,8 @@ html.dark {
   --clay-dim:   rgba(248,113,113,0.1);
   --indigo:     #818cf8;
   --indigo-dim: rgba(129,140,248,0.12);
+  --gold:       #fbbf24;
+  --gold-dim:   rgba(251,191,36,0.1);
   --text:       #ffffff;
   --text2:      #e5e5e5;
   --text3:      #999999;
@@ -143,7 +147,7 @@ html.dark .theme-toggle::after { transform: translateX(18px); background: var(--
 .theme-label { font-size: 11px; color: var(--text3); }
 
 /* ── Stats ── */
-.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(155px, 1fr)); gap: 12px; margin: 28px 0 20px; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(155px, 1fr)); gap: 12px; margin: 28px 0 12px; }
 .stat {
   background: var(--card-bg); border: 1px solid var(--border);
   border-radius: var(--r); padding: 20px 22px;
@@ -170,6 +174,44 @@ html.dark .dname     { color: #cccccc; }
 html.dark .dval      { color: #ffffff; font-weight: 600; }
 html.dark .brand-name{ color: #ffffff; }
 html.dark .fnote     { color: #666666; }
+
+/* ── VIP / NORMAL comparison ── */
+.vn-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 12px; margin-bottom: 12px;
+}
+@media (max-width: 640px) { .vn-grid { grid-template-columns: 1fr; } }
+
+.vn-panel {
+  background: var(--card-bg); border: 1px solid var(--border);
+  border-radius: var(--r); padding: 20px 24px;
+  position: relative; overflow: hidden;
+  transition: border-color .2s;
+}
+.vn-panel:hover { border-color: var(--border2); }
+.vn-panel::before {
+  content: ''; position: absolute;
+  top: 0; left: 0; bottom: 0; width: 3px;
+  background: var(--vn-ac, transparent);
+  border-radius: var(--r) 0 0 var(--r);
+}
+.vn-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 16px;
+}
+.vn-title { font-size: 11px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--text3); font-weight: 600; }
+.vn-badge {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.5px;
+  padding: 3px 10px; border-radius: 20px;
+}
+.vn-badge-vip    { background: var(--gold-dim);   color: var(--gold);   border: 1px solid rgba(154,123,48,0.25); }
+.vn-badge-normal { background: var(--indigo-dim); color: var(--indigo); border: 1px solid rgba(107,125,181,0.25); }
+
+.vn-nums { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.vn-num-lbl { font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: var(--text3); font-weight: 600; margin-bottom: 4px; }
+.vn-num-val { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 26px; font-weight: 800; line-height: 1; letter-spacing: -1px; }
+.vn-pbar { margin-top: 14px; background: var(--cream3); border-radius: 3px; height: 2px; overflow: hidden; }
+.vn-pbar-f { height: 2px; border-radius: 3px; transition: width 1.2s cubic-bezier(.4,0,.2,1); }
 
 /* ── Mid ── */
 .mid { display: grid; grid-template-columns: 220px 1fr; gap: 12px; margin-bottom: 20px; }
@@ -221,7 +263,7 @@ html.dark .fnote     { color: #666666; }
 /* ── Table ── */
 .twrap { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; }
 .table-scroll { overflow-x: auto; }
-table { width: 100%; min-width: 900px; border-collapse: collapse; }
+table { width: 100%; min-width: 980px; border-collapse: collapse; }
 thead tr { border-bottom: 1px solid var(--border2); }
 th {
   padding: 12px 20px; text-align: left;
@@ -241,9 +283,11 @@ tr.es-reintento:hover { background: rgba(107,125,181,0.18); }
 .status-pill .dot { width: 5px; height: 5px; border-radius: 50%; }
 
 .bdg { display: inline-flex; align-items: center; gap: 5px; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 500; transition: all .2s; }
-.bdg-ok   { background: var(--sage-dim);  color: var(--sage2); border: 1px solid rgba(122,158,126,0.2); }
-.bdg-fail { background: var(--clay-dim);  color: var(--clay);  border: 1px solid rgba(184,92,74,0.2); }
-.bdg-pend { background: var(--terra-dim); color: var(--terra); border: 1px solid rgba(193,127,90,0.2); }
+.bdg-ok     { background: var(--sage-dim);   color: var(--sage2);  border: 1px solid rgba(122,158,126,0.2); }
+.bdg-fail   { background: var(--clay-dim);   color: var(--clay);   border: 1px solid rgba(184,92,74,0.2); }
+.bdg-pend   { background: var(--terra-dim);  color: var(--terra);  border: 1px solid rgba(193,127,90,0.2); }
+.bdg-vip    { background: var(--gold-dim);   color: var(--gold);   border: 1px solid rgba(154,123,48,0.2); }
+.bdg-nor    { background: var(--indigo-dim); color: var(--indigo); border: 1px solid rgba(107,125,181,0.2); }
 tbody tr:hover .bdg { transform: scale(1.04); }
 
 .bdg-ret {
@@ -255,7 +299,6 @@ tbody tr:hover .bdg { transform: scale(1.04); }
   margin-left: 6px; vertical-align: middle;
 }
 .retry-prefix { color: var(--indigo); font-size: 11px; margin-right: 4px; opacity: 0.7; }
-
 .empty td { text-align: center; padding: 64px; color: var(--text3); font-size: 13px; font-family: 'Cormorant Garamond', serif; font-style: italic; }
 
 /* ── Paginación ── */
@@ -272,10 +315,8 @@ tbody tr:hover .bdg { transform: scale(1.04); }
 
 .pag-btn {
   min-width: 32px; height: 32px; padding: 0 10px;
-  border-radius: 8px;
-  border: 1px solid var(--border);
-  background: transparent;
-  color: var(--text2); font-size: 12px;
+  border-radius: 8px; border: 1px solid var(--border);
+  background: transparent; color: var(--text2); font-size: 12px;
   cursor: pointer; transition: all .15s;
   font-family: 'DM Sans', sans-serif;
   display: inline-flex; align-items: center; justify-content: center;
@@ -284,7 +325,6 @@ tbody tr:hover .bdg { transform: scale(1.04); }
 .pag-btn:disabled { opacity: 0.35; cursor: not-allowed; }
 .pag-btn.active { background: var(--bark); border-color: var(--bark); color: var(--cream); font-weight: 600; }
 html.dark .pag-btn.active { background: var(--cream3); border-color: var(--cream3); color: var(--bark); }
-
 .pag-ellipsis { font-size: 12px; color: var(--text3); padding: 0 4px; }
 
 .per-page-select {
@@ -354,7 +394,7 @@ footer { margin-top: 32px; padding: 20px 0; border-top: 1px solid var(--border);
 
 <div class="wrap" style="padding-top:0;padding-bottom:48px">
 
-  <!-- Stats -->
+  <!-- Stats generales -->
   <div class="stats fu">
     <div class="stat" style="--ac:#1a7abf">
       <div class="stat-icon">📋</div>
@@ -400,6 +440,62 @@ footer { margin-top: 32px; padding: 20px 0; border-top: 1px solid var(--border);
     </div>
   </div>
 
+  <!-- VIP vs NORMAL -->
+  <div class="vn-grid fu fu1">
+    <!-- VIP -->
+    <div class="vn-panel" style="--vn-ac:var(--gold)">
+      <div class="vn-header">
+        <div class="vn-title">Acceso VIP</div>
+        <span class="vn-badge vn-badge-vip">◆ VIP · 7415177</span>
+      </div>
+      <div class="vn-nums">
+        <div>
+          <div class="vn-num-lbl">Total</div>
+          <div class="vn-num-val" id="sv-tot" style="color:var(--gold)">—</div>
+        </div>
+        <div>
+          <div class="vn-num-lbl">Contest.</div>
+          <div class="vn-num-val" id="sv-ok" style="color:var(--sage2)">—</div>
+        </div>
+        <div>
+          <div class="vn-num-lbl">No cont.</div>
+          <div class="vn-num-val" id="sv-fail" style="color:var(--clay)">—</div>
+        </div>
+        <div>
+          <div class="vn-num-lbl">Tasa</div>
+          <div class="vn-num-val" id="sv-tasa" style="color:var(--bark)">—</div>
+        </div>
+      </div>
+      <div class="vn-pbar"><div class="vn-pbar-f" id="sv-pbar" style="background:var(--gold);width:0%"></div></div>
+    </div>
+    <!-- NORMAL -->
+    <div class="vn-panel" style="--vn-ac:var(--indigo)">
+      <div class="vn-header">
+        <div class="vn-title">Reto 2026</div>
+        <span class="vn-badge vn-badge-normal">◇ NORMAL · 7408939</span>
+      </div>
+      <div class="vn-nums">
+        <div>
+          <div class="vn-num-lbl">Total</div>
+          <div class="vn-num-val" id="sn-tot" style="color:var(--indigo)">—</div>
+        </div>
+        <div>
+          <div class="vn-num-lbl">Contest.</div>
+          <div class="vn-num-val" id="sn-ok" style="color:var(--sage2)">—</div>
+        </div>
+        <div>
+          <div class="vn-num-lbl">No cont.</div>
+          <div class="vn-num-val" id="sn-fail" style="color:var(--clay)">—</div>
+        </div>
+        <div>
+          <div class="vn-num-lbl">Tasa</div>
+          <div class="vn-num-val" id="sn-tasa" style="color:var(--bark)">—</div>
+        </div>
+      </div>
+      <div class="vn-pbar"><div class="vn-pbar-f" id="sn-pbar" style="background:var(--indigo);width:0%"></div></div>
+    </div>
+  </div>
+
   <!-- Mid -->
   <div class="mid fu fu1">
     <div class="panel">
@@ -417,12 +513,17 @@ footer { margin-top: 32px; padding: 20px 0; border-top: 1px solid var(--border);
   <div class="divider fu fu2">Registros</div>
 
   <div class="filters fu fu2">
-    <input class="finp" id="fq" placeholder="Buscar por nombre, teléfono o email…" style="width:260px" oninput="onFiltrar()">
+    <input class="finp" id="fq" placeholder="Buscar por nombre, teléfono o email…" style="width:240px" oninput="onFiltrar()">
     <select class="finp" id="fst" onchange="onFiltrar()">
       <option value="">Todos los resultados</option>
       <option value="ok">Contestadas</option>
       <option value="fail">No contestadas</option>
       <option value="pend">Pendientes</option>
+    </select>
+    <select class="finp" id="ftipo" onchange="onFiltrar()">
+      <option value="">Todos los tipos</option>
+      <option value="VIP">Solo VIP</option>
+      <option value="NORMAL">Solo NORMAL</option>
     </select>
     <select class="finp" id="fint" onchange="onFiltrar()">
       <option value="">Todos los intentos</option>
@@ -444,6 +545,7 @@ footer { margin-top: 32px; padding: 20px 0; border-top: 1px solid var(--border);
           <th>Contacto</th>
           <th>Teléfono</th>
           <th>País</th>
+          <th style="text-align:center">Tipo</th>
           <th>Estado final</th>
           <th>Motivo</th>
           <th style="text-align:center">Resultado</th>
@@ -455,7 +557,6 @@ footer { margin-top: 32px; padding: 20px 0; border-top: 1px solid var(--border);
       <tbody id="tbody"></tbody>
     </table>
     </div>
-    <!-- Paginación dentro del card -->
     <div class="pag-wrap" id="pag-wrap">
       <div class="pag-info" id="pag-info"></div>
       <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
@@ -483,8 +584,8 @@ const API_URL = 'https://hsk-n8n.ju2hpi.easypanel.host/webhook/dashboard-data';
 
 let todos     = [];
 let filtrados = [];
-let paginaActual  = 1;
-let porPagina     = 50;
+let paginaActual = 1;
+let porPagina    = 50;
 
 // ── Tema ──
 function toggleTema() {
@@ -595,31 +696,54 @@ function renderizar() {
   document.getElementById('fn').textContent = todos.length;
 }
 
+// ── Calcula métricas para un subgrupo ──
+function calcMetricas(arr) {
+  const ok   = arr.filter(r => resultado(r) === 'ok').length;
+  const fail = arr.filter(r => resultado(r) === 'fail').length;
+  const pend = arr.filter(r => resultado(r) === 'pend').length;
+  const tasa = (ok + fail) > 0 ? Math.round(ok / (ok + fail) * 100) : 0;
+  return { total: arr.length, ok, fail, pend, tasa };
+}
+
 // ── Stats ──
 function stats() {
   const T    = todos.length;
-  const ok   = todos.filter(r => resultado(r)==='ok').length;
-  const fail = todos.filter(r => resultado(r)==='fail').length;
-  const pend = todos.filter(r => resultado(r)==='pend').length;
-  const tasa = (ok+fail) > 0 ? Math.round(ok/(ok+fail)*100) : 0;
+  const m    = calcMetricas(todos);
   const hoy  = new Date().toDateString();
   const hoyN = todos.filter(r => { const f=new Date(r.createdAt); return !isNaN(f) && f.toDateString()===hoy; }).length;
   const reintentos     = todos.filter(esReintento);
   const retTotal       = reintentos.length;
   const retContestadas = reintentos.filter(r => resultado(r)==='ok').length;
 
+  // Totales generales
   document.getElementById('s-tot').textContent   = T;
-  document.getElementById('s-ok').textContent    = ok;
-  document.getElementById('s-fail').textContent  = fail;
-  document.getElementById('s-pend').textContent  = pend;
-  document.getElementById('s-tasa').textContent  = tasa+'%';
+  document.getElementById('s-ok').textContent    = m.ok;
+  document.getElementById('s-fail').textContent  = m.fail;
+  document.getElementById('s-pend').textContent  = m.pend;
+  document.getElementById('s-tasa').textContent  = m.tasa + '%';
   document.getElementById('s-hoy').textContent   = hoyN;
   document.getElementById('s-ret').textContent   = retTotal;
-  document.getElementById('pb-ok').style.width   = T ? Math.round(ok/T*100)+'%'   : '0%';
-  document.getElementById('pb-fail').style.width = T ? Math.round(fail/T*100)+'%' : '0%';
+  document.getElementById('pb-ok').style.width   = T ? Math.round(m.ok/T*100)+'%'   : '0%';
+  document.getElementById('pb-fail').style.width = T ? Math.round(m.fail/T*100)+'%' : '0%';
   const pctRet = retTotal > 0 ? Math.round(retContestadas/retTotal*100) : 0;
   document.getElementById('s-ret-sub').textContent =
     retTotal > 0 ? `${retContestadas} contestadas (${pctRet}%)` : 'ninguno aún';
+
+  // VIP
+  const mv = calcMetricas(todos.filter(r => r.tipo === 'VIP'));
+  document.getElementById('sv-tot').textContent  = mv.total;
+  document.getElementById('sv-ok').textContent   = mv.ok;
+  document.getElementById('sv-fail').textContent = mv.fail;
+  document.getElementById('sv-tasa').textContent = mv.tasa + '%';
+  document.getElementById('sv-pbar').style.width = mv.total ? Math.round(mv.ok/mv.total*100)+'%' : '0%';
+
+  // NORMAL
+  const mn = calcMetricas(todos.filter(r => r.tipo === 'NORMAL'));
+  document.getElementById('sn-tot').textContent  = mn.total;
+  document.getElementById('sn-ok').textContent   = mn.ok;
+  document.getElementById('sn-fail').textContent = mn.fail;
+  document.getElementById('sn-tasa').textContent = mn.tasa + '%';
+  document.getElementById('sn-pbar').style.width = mn.total ? Math.round(mn.ok/mn.total*100)+'%' : '0%';
 }
 
 // ── Donut ──
@@ -686,7 +810,7 @@ function barras() {
   }).join('');
 }
 
-// ── Filtros → resetea a página 1 ──
+// ── Filtros ──
 function onFiltrar() { paginaActual = 1; filtrar(); }
 function onPerPage() {
   porPagina = Number(document.getElementById('per-page').value);
@@ -696,18 +820,20 @@ function onPerPage() {
 }
 
 function filtrar() {
-  const q    = document.getElementById('fq').value.toLowerCase();
-  const st   = document.getElementById('fst').value;
-  const fint = document.getElementById('fint').value;
-  const or   = document.getElementById('ford').value;
+  const q     = document.getElementById('fq').value.toLowerCase();
+  const st    = document.getElementById('fst').value;
+  const ftipo = document.getElementById('ftipo').value;
+  const fint  = document.getElementById('fint').value;
+  const or    = document.getElementById('ford').value;
 
   filtrados = todos
     .filter(r =>
-      (!q    || (r.nombre||r.name||'').toLowerCase().includes(q) ||
-                 (r.telefono||r.phone||'').includes(q) ||
-                 (r.email||'').toLowerCase().includes(q)) &&
-      (!st   || resultado(r) === st) &&
-      (!fint || String(r.intento || 1) === fint)
+      (!q     || (r.nombre||r.name||'').toLowerCase().includes(q) ||
+                  (r.telefono||r.phone||'').includes(q) ||
+                  (r.email||'').toLowerCase().includes(q)) &&
+      (!st    || resultado(r) === st) &&
+      (!ftipo || (r.tipo || '') === ftipo) &&
+      (!fint  || String(r.intento || 1) === fint)
     )
     .sort((a,b) => {
       const va = a.createdAt ? new Date(a.createdAt) : (a.id||0);
@@ -720,7 +846,7 @@ function filtrar() {
   paginacion();
 }
 
-// ── Tabla (solo la página actual) ──
+// ── Tabla ──
 function telefonosConReintento() {
   const s = new Set();
   todos.filter(esReintento).forEach(r => { const t=r.telefono||r.phone||''; if(t) s.add(t); });
@@ -732,14 +858,12 @@ function tabla() {
   const retTels = telefonosConReintento();
 
   if (!filtrados.length) {
-    tb.innerHTML = '<tr class="empty"><td colspan="9">No hay registros que coincidan con tu búsqueda</td></tr>';
+    tb.innerHTML = '<tr class="empty"><td colspan="10">No hay registros que coincidan con tu búsqueda</td></tr>';
     return;
   }
 
-  // Slice de la página actual
-  const inicio  = (paginaActual - 1) * porPagina;
-  const fin     = inicio + porPagina;
-  const pagina  = filtrados.slice(inicio, fin);
+  const inicio = (paginaActual - 1) * porPagina;
+  const pagina = filtrados.slice(inicio, inicio + porPagina);
 
   tb.innerHTML = pagina.map(r => {
     const res   = resultado(r);
@@ -755,18 +879,22 @@ function tabla() {
     const stColor = res==='ok' ? 'var(--sage)' : res==='fail' ? 'var(--clay)' : 'var(--terra)';
     const stBg    = res==='ok' ? 'var(--sage-dim)' : res==='fail' ? 'var(--clay-dim)' : 'var(--terra-dim)';
 
-    const dur        = r.duracion ? `${r.duracion}s` : '—';
-    const audio      = r.audio_completo || '—';
-    const audioColor = audio==='Sí' ? 'var(--sage2)' : audio==='No' ? 'var(--clay)' : 'var(--text3)';
+    const dur = r.duracion ? `${r.duracion}s` : '—';
 
     const f    = new Date(r.createdAt);
     const fStr = isNaN(f) ? '—' : f.toLocaleDateString('es',{day:'2-digit',month:'short',year:'2-digit'});
     const hStr = isNaN(f) ? ''  : f.toLocaleTimeString('es',{hour:'2-digit',minute:'2-digit'});
 
-    const nombre   = r.nombre   || r.name    || '—';
-    const email    = r.email    || '—';
-    const telefono = tel        || '—';
-    const pais     = r.pais     || r.country || '—';
+    const nombre   = r.nombre || r.name    || '—';
+    const email    = r.email  || '—';
+    const telefono = tel      || '—';
+    const pais     = r.pais   || r.country || '—';
+
+    const tipoBadge = r.tipo === 'VIP'
+      ? `<span class="bdg bdg-vip">◆ VIP</span>`
+      : r.tipo === 'NORMAL'
+      ? `<span class="bdg bdg-nor">◇ Normal</span>`
+      : `<span style="font-size:11px;color:var(--text3)">—</span>`;
 
     const retBadge = retry
       ? `<span class="bdg-ret">↺ Reintento</span>`
@@ -786,6 +914,7 @@ function tabla() {
       </td>
       <td style="font-size:12px;color:var(--text2);letter-spacing:0.3px">${telefono}</td>
       <td style="font-size:12px;color:var(--text2)">${pais}</td>
+      <td style="text-align:center">${tipoBadge}</td>
       <td>
         <span class="status-pill" style="background:${stBg};color:${stColor}">
           <span class="dot" style="background:${stColor}"></span>
@@ -806,33 +935,29 @@ function tabla() {
 
 // ── Paginación ──
 function paginacion() {
-  const total    = filtrados.length;
-  const totPags  = Math.max(1, Math.ceil(total / porPagina));
-  const inicio   = total === 0 ? 0 : (paginaActual - 1) * porPagina + 1;
-  const fin      = Math.min(paginaActual * porPagina, total);
+  const total   = filtrados.length;
+  const totPags = Math.max(1, Math.ceil(total / porPagina));
+  const inicio  = total === 0 ? 0 : (paginaActual - 1) * porPagina + 1;
+  const fin     = Math.min(paginaActual * porPagina, total);
 
   document.getElementById('pag-info').textContent =
-    total === 0 ? 'Sin resultados' : `Mostrando ${inicio}–${fin} de ${total}`;
+    total === 0 ? 'Sin resultados' : `Mostrando ${inicio}\u2013${fin} de ${total}`;
 
-  // Números de página a mostrar (máximo 7 botones con elipsis)
-  const paginas  = paginasVisibles(paginaActual, totPags);
-  const ctrl     = document.getElementById('pag-controls');
+  const paginas = paginasVisibles(paginaActual, totPags);
+  const ctrl    = document.getElementById('pag-controls');
 
-  let html = `<button class="pag-btn" onclick="irA(${paginaActual-1})" ${paginaActual===1?'disabled':''}>‹</button>`;
-
+  let html = `<button class="pag-btn" onclick="irA(${paginaActual-1})" ${paginaActual===1?'disabled':''}>&#8249;</button>`;
   paginas.forEach(p => {
-    if (p === '…') {
-      html += `<span class="pag-ellipsis">…</span>`;
+    if (p === '\u2026') {
+      html += `<span class="pag-ellipsis">\u2026</span>`;
     } else {
       html += `<button class="pag-btn ${p===paginaActual?'active':''}" onclick="irA(${p})">${p}</button>`;
     }
   });
-
-  html += `<button class="pag-btn" onclick="irA(${paginaActual+1})" ${paginaActual===totPags?'disabled':''}>›</button>`;
+  html += `<button class="pag-btn" onclick="irA(${paginaActual+1})" ${paginaActual===totPags?'disabled':''}>&#8250;</button>`;
   ctrl.innerHTML = html;
 }
 
-// Genera el array de páginas con elipsis: [1, '…', 4, 5, 6, '…', 12]
 function paginasVisibles(actual, total) {
   if (total <= 7) return Array.from({length: total}, (_, i) => i+1);
   const pages = new Set([1, total, actual]);
@@ -841,7 +966,7 @@ function paginasVisibles(actual, total) {
   const sorted = [...pages].sort((a,b)=>a-b);
   const result = [];
   sorted.forEach((p, i) => {
-    if (i > 0 && p - sorted[i-1] > 1) result.push('…');
+    if (i > 0 && p - sorted[i-1] > 1) result.push('\u2026');
     result.push(p);
   });
   return result;
@@ -853,7 +978,6 @@ function irA(n) {
   paginaActual = n;
   tabla();
   paginacion();
-  // Scroll suave hasta la tabla
   document.querySelector('.twrap').scrollIntoView({behavior:'smooth', block:'start'});
 }
 
